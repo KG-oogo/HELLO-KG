@@ -1,5 +1,16 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, Dimensions } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
+import { TabBar } from "react-native-tab-view";
+
+import ShopHome from "../Shop/ShopNav/home";
+import ShopMyOrders from "../Shop/ShopNav/myOrders";
+import ShopMyFavourites from "../Shop/ShopNav/myFavourites";
+
+import ServiceSpraying from "./ServiceNav/spraying";
+import ServiceSoiltesting from "./ServiceNav/soilTesting";
+import ServiceTractor from "./ServiceNav/tractors";
+
 import { Button } from "react-native-paper";
 import { mdiCart } from "@mdi/js";
 
@@ -7,68 +18,79 @@ import { Title } from "react-native-paper";
 
 import TopMenu from "../TopMenu/topMenu";
 
-function AgriShopButton() {
-  return <Button>Press me</Button>;
-}
+const FirstRoute = () => (
+  <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
+);
 
-/*
-icon={({ size, color }) => (
-          <Image
-            source={require('../assets/chameleon.jpg')}
-            style={{ width: size, height: size, tintColor: color }}
-          />
-        )}
-*/
+const SecondRoute = () => (
+  <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
+);
 
-const items = [
-  {
-    name: "Agri Shop",
-    icon: <AgriShopButton />,
-  },
-  {
-    name: "EZY Credit",
-    icon: "",
-  },
-  {
-    name: "Garden Mapping",
-    icon: "",
-  },
-  {
-    name: "Farm Manager",
-    icon: "",
-  },
-  {
-    name: "Better Extension",
-    icon: "",
-  },
-  {
-    name: "Produce Market",
-    icon: "",
-  },
-];
+const initialLayout = { width: Dimensions.get("window").width };
 
 export default function ServiceThirdTab() {
+  const [index, setIndex] = useState(0);
+  const [routes] = React.useState([
+    { key: "Spraying", title: "Spraying" },
+    { key: "SoilTesting", title: "Soil Testing" },
+    { key: "Tractor", title: "Tractor" },
+  ]);
+
+  const renderScene = SceneMap({
+    Spraying: ServiceSpraying,
+    SoilTesting: ServiceSoiltesting,
+    Tractor: ServiceTractor,
+  });
+
+  const renderTabBar = (props) => (
+    <TabBar
+      {...props}
+      indicatorStyle={{ backgroundColor: "yellow" }}
+      style={{ backgroundColor: "#556B2F" }}
+    />
+  );
+
   return (
     <View style={styles.container}>
       <TopMenu />
       <View style={styles.view}>
-        <Text>Service</Text>
+        <TabView
+          navigationState={{ index, routes }}
+          renderScene={renderScene}
+          onIndexChange={setIndex}
+          initialLayout={initialLayout}
+          renderTabBar={renderTabBar}
+        />
       </View>
     </View>
   );
 }
 
+/* export default function ShopSecondTab() {
+  return (
+    <View style={styles.container}>
+      <TopMenu />
+      <View style={styles.view}>
+        <Text>Shop</Text>
+      </View>
+    </View>
+  );
+} */
+
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
-    marginLeft: 10,
+    marginTop: "10%",
     flex: 1,
   },
   view: {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    flex: 1,
+
     flexWrap: "wrap",
+    height: "90%",
+  },
+  scene: {
+    flex: 1,
   },
 });

@@ -6,7 +6,15 @@ import { Button } from "react-native-paper";
 
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
 
-import TabNavigator from "./EzyAgriComponents/navigation";
+import SwitchNivigator from "./EzyAgriComponents/navigation";
+
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import ReduxThunk from "redux-thunk";
+import thunk from "redux-thunk";
+
+import reducer from "./EzyAgriComponents/Redux/reducers/reducers";
+import { addUpdateReducer } from "./EzyAgriComponents/Redux/reducers/reducers";
 
 const theme = {
   ...DefaultTheme,
@@ -21,10 +29,17 @@ const theme = {
 export default function App() {
   const [outputText, setOutputText] = useState(0);
 
+  //const state = createStore(addUpdateReducer, {}, applyMiddleware(thunk));
+  const state = createStore(reducer, {}, applyMiddleware(thunk));
+  //const state = createStore(reducer, {}, applyMiddleware(ReduxThunk));
+  //const state = createStore(addUpdateReducer, {}, applyMiddleware(ReduxThunk));
+
   return (
-    <PaperProvider theme={theme}>
-      <TabNavigator />
-    </PaperProvider>
+    <Provider store={state}>
+      <PaperProvider theme={theme}>
+        <SwitchNivigator />
+      </PaperProvider>
+    </Provider>
   );
 }
 

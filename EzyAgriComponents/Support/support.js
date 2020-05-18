@@ -1,9 +1,12 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { Button } from "react-native-paper";
+import { StyleSheet, Text, FlatList, View } from "react-native";
+import { Button, Title, TouchableRipple } from "react-native-paper";
+import { connect } from "react-redux";
+import { dicArrayConv } from "../Redux/dataConvertor";
+import { Icon } from "react-native-elements";
+
 import { mdiCart } from "@mdi/js";
 
-import { Title } from "react-native-paper";
 import TopMenu from "../TopMenu/topMenu";
 
 function AgriShopButton() {
@@ -19,39 +22,71 @@ icon={({ size, color }) => (
         )}
 */
 
-const items = [
+const contactMethods = [
   {
-    name: "Agri Shop",
-    icon: <AgriShopButton />,
+    name: "Call",
+    method: "012345678",
+    icon: "monetization",
   },
   {
-    name: "EZY Credit",
-    icon: "",
+    name: "Mail",
+    method: "somebody@gmail.com",
+    icon: "monetization-on",
   },
   {
-    name: "Garden Mapping",
-    icon: "",
+    name: "WhatsApp",
+    method: "012345678",
+    icon: "monetization-on",
   },
   {
-    name: "Farm Manager",
-    icon: "",
-  },
-  {
-    name: "Better Extension",
-    icon: "",
-  },
-  {
-    name: "Produce Market",
-    icon: "",
+    name: "SMS",
+    method: "012345678",
+    icon: "monetization-on",
   },
 ];
 
-export default function SupportFouthTab() {
+const finger = (action) => {
+  //console.log(action);
+  /* action("ADD_UPDATE_MENU_ITEMS", {
+    10: {
+      key: 10,
+      name: "Input Shop",
+      icon: "shopping-cart",
+    },
+  }); */
+  //console.log("after");
+};
+
+function SupportFouthTab(props) {
+  const [contactMethods, setcontactMethods] = useState(
+    dicArrayConv(props.contactMethods)
+  );
   return (
     <View style={styles.container}>
       <TopMenu />
       <View style={styles.view}>
-        <Text>Support</Text>
+        <FlatList
+          keyExtractor={(items) => items.name}
+          data={contactMethods}
+          renderItem={({ item }) => (
+            <TouchableRipple
+              onPress={() => {
+                finger(props.action);
+                setcontactMethods(dicArrayConv(props.contactMethods));
+              }}
+            >
+              <View key={item.key} style={styles.items}>
+                <Icon size={60} name={item.icon} color="green" />
+                <Text style={{ color: "green", fontSize: 30 }}>
+                  {item.name}
+                </Text>
+                <Text style={{ color: "green", fontSize: 20 }}>
+                  {item.method}
+                </Text>
+              </View>
+            </TouchableRipple>
+          )}
+        />
       </View>
     </View>
   );
@@ -59,15 +94,22 @@ export default function SupportFouthTab() {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 60,
-    marginLeft: 10,
+    marginTop: "10%",
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   view: {
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    flex: 1,
     flexWrap: "wrap",
+    height: "90%",
   },
 });
+
+const mapStateToProps = (state) => ({
+  contactMethods: state.addUpdateReducer.contactMethods,
+});
+
+export default connect(mapStateToProps)(SupportFouthTab);

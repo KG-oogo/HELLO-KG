@@ -19,8 +19,6 @@ import TopMenu from "../TopMenu/topMenu";
 import { connect } from "react-redux";
 
 import { action } from "../Redux/types";
-
-import { dicArrayConv } from "../Redux/dataConvertor";
 import _ from "lodash";
 
 function AgriShopButton() {
@@ -88,19 +86,19 @@ const TabIcon = (props) => (
 
 const finger = (action) => {
   //console.log(action);
-  /* action("ADD_UPDATE_MENU_ITEMS", {
-    10: {
-      key: 10,
+  action("ADD_UPDATE_MENU_ITEMS", {
+    7: {
+      key: 7,
       name: "Input Shop",
       icon: "shopping-cart",
     },
-  }); */
+  });
   //console.log("after");
 };
 
-/* const dicArrayConv = (dic) => {
+const dicArrayConv = (dic) => {
   return _.values(dic);
-}; */
+};
 
 function MenuFirstTab(props) {
   const [menuItems, setMenuItems] = useState(dicArrayConv(props.menuItems));
@@ -141,6 +139,7 @@ function MenuFirstTab(props) {
           style={{ width: "50%" }}
           numColumns={2}
           data={menuItems}
+          extraData={dicArrayConv(props.menuItems)}
           renderItem={({ item }) => (
             <TouchableRipple
               onPress={() => {
@@ -149,8 +148,8 @@ function MenuFirstTab(props) {
               }}
             >
               <View key={item.key} style={styles.items}>
-                <Text style={{ color: "#556B2F" }}>{item.name}</Text>
-                <Icon size={80} name={item.icon} color="#556B2F" />
+                <Text style={{ color: "green" }}>{item.name}</Text>
+                <Icon size={80} name={item.icon} color="green" />
               </View>
             </TouchableRipple>
           )}

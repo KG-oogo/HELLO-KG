@@ -1,0 +1,117 @@
+import React, { useState } from "react";
+import { StyleSheet, Text, View, FlatList } from "react-native";
+
+import {
+  Avatar,
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  TouchableRipple,
+  Searchbar,
+} from "react-native-paper";
+
+import { connect } from "react-redux";
+import { mdiCart } from "@mdi/js";
+import { dicArrayConv } from "../../Redux/dataConvertor";
+import { addUpdateDataTransaction } from "../../Redux/types";
+
+import TopMenu from "../../TopMenu/topMenu";
+
+function AgriShopButton() {
+  return <Button>Press me</Button>;
+}
+
+/*
+icon={({ size, color }) => (
+          <Image
+            source={require('../assets/chameleon.jpg')}
+            style={{ width: size, height: size, tintColor: color }}
+          />
+        )}
+*/
+const finger = (action) => {
+  //console.log(action);
+  /*  action("ADD_UPDATE_MENU_ITEMS", {
+    10: {
+      key: 10,
+      name: "Input Shop",
+      icon: "shopping-cart",
+    },
+  }); */
+  //console.log("after");
+};
+
+function ShopHome(props) {
+  const [products, setProducts] = useState(dicArrayConv(props.products));
+  const [searchQuery, setSearchQuery] = useState("");
+  const onChangeSearch = () => {
+    console.log("");
+  };
+  return (
+    <View style={styles.container}>
+      <View style={styles.view}>
+        <Searchbar
+          placeholder="Search"
+          onChangeText={(e) => setSearchQuery(e)}
+          value={searchQuery}
+        />
+        <FlatList
+          style={{ width: "100%", height: "100%", padding: "5%" }}
+          // numColumns={2}
+          data={products}
+          renderItem={({ item }) => (
+            <Card style={styles.items}>
+              <Card.Content>
+                <Title>{item.name}</Title>
+                <Paragraph>{item.description}</Paragraph>
+              </Card.Content>
+              {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+              <Card.Cover source={item.picture} />
+              <Card.Actions style={{ justifyContent: "space-between" }}>
+                <Button
+                  icon="check"
+                  mode="contained"
+                  onPress={() => console.log("Pressed")}
+                >
+                  Order
+                </Button>
+                <Button
+                  icon="star"
+                  mode="contained"
+                  onPress={() => console.log("Pressed")}
+                ></Button>
+              </Card.Actions>
+            </Card>
+          )}
+        />
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  view: {
+    justifyContent: "center",
+    alignItems: "center",
+    //flexDirection: "row",
+
+    flexWrap: "wrap",
+  },
+  items: {
+    margin: "5%",
+
+    ///justifyContent: "center",
+    //alignItems: "center",
+  },
+  card: { paddingVertical: "15%" },
+});
+
+const mapStateToProps = (state) => ({
+  products: state.addUpdateReducer.products,
+});
+
+export default connect(mapStateToProps)(ShopHome);

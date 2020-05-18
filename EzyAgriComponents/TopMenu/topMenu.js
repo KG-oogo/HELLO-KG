@@ -38,7 +38,7 @@ export default function TopMenu() {
       <View style={styles.view}>
         <Text
           style={{
-            color: "green",
+            color: "#556B2F",
             flexGrow: 1,
             paddingRight: "50%",
             paddingLeft: "5%",
@@ -46,9 +46,15 @@ export default function TopMenu() {
         >
           KG Farmer
         </Text>
-        <Icon size={30} name="shopping-cart" color="green" />
-        <Icon size={30} name="person" color="green" />
-        <Icon size={30} name="menu" color="green" />
+        <TouchableRipple>
+          <Icon size={30} name="shopping-cart" color="#556B2F" />
+        </TouchableRipple>
+        <TouchableRipple>
+          <Icon size={30} name="person" color="#556B2F" />
+        </TouchableRipple>
+        <TouchableRipple>
+          <Icon size={30} name="menu" color="#556B2F" />
+        </TouchableRipple>
       </View>
     </View>
   );
