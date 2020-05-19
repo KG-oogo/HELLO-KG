@@ -135,7 +135,7 @@ export const deleteReducer = (state = {}, action) => {
        7: {
         key: 7,
         name: "Input Shop",
-        icon: "shopping-cart",
+        icon: "shopping-cart", 
       }  
   
         */

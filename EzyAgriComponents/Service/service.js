@@ -17,6 +17,7 @@ import { mdiCart } from "@mdi/js";
 import { Title } from "react-native-paper";
 
 import TopMenu from "../TopMenu/topMenu";
+import styles from "../styles";
 
 const FirstRoute = () => (
   <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
@@ -77,7 +78,7 @@ export default function ServiceThirdTab() {
   );
 } */
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   container: {
     marginTop: "10%",
     flex: 1,

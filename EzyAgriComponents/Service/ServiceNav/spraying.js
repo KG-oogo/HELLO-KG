@@ -7,6 +7,7 @@ import { mdiCart } from "@mdi/js";
 
 import { Title } from "react-native-paper";
 import TopMenu from "../../TopMenu/topMenu";
+import styles from "../../styles";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -72,7 +73,7 @@ function ServiceSpraying(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   container: {
     marginTop: "20%",
     flex: 1,

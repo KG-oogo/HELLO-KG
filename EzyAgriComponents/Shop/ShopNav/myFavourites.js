@@ -37,26 +37,33 @@ function ShopMyFavourites(props) {
   const [favourites, setfavourites] = useState(dicArrayConv(props.favourites));
   console.log(favourites);
   return (
-    <View style={styles.container}>
-      <View style={styles.view}>
+    <View style={stylesLocal.container}>
+      <View style={stylesLocal.view}>
         {favourites.length === 0 ? (
           <Text>You have no favourites</Text>
         ) : (
           <FlatList
-            style={{ width: "50%" }}
-            numColumns={2}
-            data={favourites}
+            style={{ width: "100%", height: "100%", padding: "5%" }}
+            // numColumns={2}
+            data={products}
             renderItem={({ item }) => (
-              <TouchableRipple
-                onPress={() => {
-                  finger(props.action);
-                  setfavourites(dicArrayConv(props.favourites));
-                }}
-              >
-                <View key={item.key} style={styles.items}>
-                  <Text style={{ color: "green" }}>{item.category}</Text>
-                </View>
-              </TouchableRipple>
+              <Card style={stylesLocal.items}>
+                <Card.Content>
+                  <Title>{item.name}</Title>
+                  <Paragraph>{item.description}</Paragraph>
+                </Card.Content>
+                {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+                <Card.Cover source={item.picture} />
+                <Card.Actions style={{ justifyContent: "space-between" }}>
+                  <Button
+                    icon="check"
+                    mode="contained"
+                    onPress={() => console.log("Pressed")}
+                  >
+                    Remove
+                  </Button>
+                </Card.Actions>
+              </Card>
             )}
           />
         )}
@@ -65,24 +72,26 @@ function ShopMyFavourites(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   container: {
-    marginTop: "20%",
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1,
   },
   view: {
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
+    //flexDirection: "row",
 
     flexWrap: "wrap",
-    height: "80%",
   },
   items: {
-    padding: "15%",
-    justifyContent: "center",
-    alignItems: "center",
+    margin: "5%",
+
+    ///justifyContent: "center",
+    //alignItems: "center",
   },
+  card: { paddingVertical: "15%" },
 });
 
 const mapStateToProps = (state) => ({

@@ -106,6 +106,11 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     height: "90%",
   },
+  items: {
+    padding: "5%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });
 
 const mapStateToProps = (state) => ({

@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { Button, TouchableRipple } from "react-native-paper";
+import { Button, TouchableRipple, Card, Title } from "react-native-paper";
 import { connect } from "react-redux";
 import { dicArrayConv } from "../../Redux/dataConvertor";
 import { mdiCart } from "@mdi/js";
 
-import { Title } from "react-native-paper";
 import TopMenu from "../../TopMenu/topMenu";
 
 function AgriShopButton() {
@@ -42,8 +41,8 @@ function ServiceTractor(props) {
           <Text>There are no tractors to request</Text>
         ) : (
           <FlatList
-            style={{ width: "50%" }}
-            numColumns={2}
+            style={{ width: "100%" }}
+            //numColumns={2}
             data={tractors}
             renderItem={({ item }) => (
               <TouchableRipple
@@ -52,9 +51,15 @@ function ServiceTractor(props) {
                   settractors(dicArrayConv(props.tractors));
                 }}
               >
-                <View key={item.key} style={styles.items}>
-                  <Text style={{ color: "green" }}>{item.company}</Text>
-                </View>
+                <Card key={item.key} style={styles.items}>
+                  <Card.Content>
+                    <Title style={styles.text}>{item.company}</Title>
+                    <Text style={styles.text}>District: {item.district}</Text>
+                    <Text style={styles.text}>Service: {item.service}</Text>
+                    <Text style={styles.text}>Price: {item.price}</Text>
+                    <Text style={styles.text}>Unit: {item.unit}</Text>
+                  </Card.Content>
+                </Card>
               </TouchableRipple>
             )}
           />
@@ -66,21 +71,24 @@ function ServiceTractor(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: "20%",
+    justifyContent: "center",
+    alignItems: "center",
+    //marginTop: "20%",
     flex: 1,
   },
   view: {
     justifyContent: "center",
     alignItems: "center",
-    flexDirection: "row",
-
-    flexWrap: "wrap",
-    height: "80%",
+    //flexDirection: "row",
+    width: "100%",
   },
   items: {
-    padding: "15%",
+    margin: "5%",
     justifyContent: "center",
     alignItems: "center",
+  },
+  text: {
+    color: "#556B2F",
   },
 });
 

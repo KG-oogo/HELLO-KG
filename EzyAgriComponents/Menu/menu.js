@@ -22,6 +22,7 @@ import { action } from "../Redux/types";
 
 import { dicArrayConv } from "../Redux/dataConvertor";
 import _ from "lodash";
+import styles from "../styles";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -188,14 +189,16 @@ function MenuFirstTab(props) {
         </View>
 */
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   container: {
     marginTop: "10%",
-
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1,
   },
   view: {
-    justifyContent: "flex-start",
+    //justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
 

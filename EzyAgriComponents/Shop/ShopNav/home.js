@@ -18,6 +18,8 @@ import { addUpdateDataTransaction } from "../../Redux/types";
 
 import TopMenu from "../../TopMenu/topMenu";
 
+import styles from "../../styles";
+
 function AgriShopButton() {
   return <Button>Press me</Button>;
 }
@@ -49,8 +51,8 @@ function ShopHome(props) {
     console.log("");
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.view}>
+    <View style={stylesLocal.container}>
+      <View style={stylesLocal.view}>
         <Searchbar
           placeholder="Search"
           onChangeText={(e) => setSearchQuery(e)}
@@ -61,7 +63,7 @@ function ShopHome(props) {
           // numColumns={2}
           data={products}
           renderItem={({ item }) => (
-            <Card style={styles.items}>
+            <Card style={stylesLocal.items}>
               <Card.Content>
                 <Title>{item.name}</Title>
                 <Paragraph>{item.description}</Paragraph>
@@ -90,8 +92,10 @@ function ShopHome(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   container: {
+    justifyContent: "center",
+    alignItems: "center",
     flex: 1,
   },
   view: {

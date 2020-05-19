@@ -3,7 +3,7 @@
     "name": "hello-KG",
     "slug": "hello-KG",
     "platforms": ["ios", "android", "web"],
-    "version": "2.0.0",
+    "version": "3.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
