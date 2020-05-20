@@ -8,6 +8,7 @@ import { Icon } from "react-native-elements";
 import { mdiCart } from "@mdi/js";
 
 import TopMenu from "../TopMenu/topMenu";
+import styles from "../styles";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -61,6 +62,7 @@ function SupportFouthTab(props) {
   const [contactMethods, setcontactMethods] = useState(
     dicArrayConv(props.contactMethods)
   );
+  //console.log(dicArrayConv(props.contactMethods)[0].redirect);
   return (
     <View style={styles.container}>
       <TopMenu />
@@ -71,16 +73,18 @@ function SupportFouthTab(props) {
           renderItem={({ item }) => (
             <TouchableRipple
               onPress={() => {
+                //console.log(item);
                 finger(props.action);
+                props.navigation.navigate(item.redirect);
                 setcontactMethods(dicArrayConv(props.contactMethods));
               }}
             >
               <View key={item.key} style={styles.items}>
                 <Icon size={60} name={item.icon} color="green" />
-                <Text style={{ color: "green", fontSize: 30 }}>
+                <Text style={{ color: "#556B2F", fontSize: 30 }}>
                   {item.name}
                 </Text>
-                <Text style={{ color: "green", fontSize: 20 }}>
+                <Text style={{ color: "#556B2F", fontSize: 20 }}>
                   {item.method}
                 </Text>
               </View>
@@ -92,7 +96,7 @@ function SupportFouthTab(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const stylesLocal = StyleSheet.create({
   container: {
     marginTop: "10%",
     flex: 1,

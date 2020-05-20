@@ -19,6 +19,10 @@ import ServiceThirdTab from "./Service/service";
 import SupportFouthTab from "./Support/support";
 import RegisterFarmerSupport from "../SharedComponents/register";
 
+import AddService from "./Admin/addServices";
+import AddProducts from "./Admin/addProducts";
+import CamKG from "./Learning/camera";
+
 const MenuIcon = (props) => (
   <Ionicons
     name={"md-home"}
@@ -112,6 +116,9 @@ const SwitchNivigator = createSwitchNavigator(
   {
     Login: Login,
     Application: BottomTabNavigator,
+    AddService: AddService,
+    AddProducts: AddProducts,
+    CamKG: CamKG,
   },
   {
     initialRouteName: "Login",

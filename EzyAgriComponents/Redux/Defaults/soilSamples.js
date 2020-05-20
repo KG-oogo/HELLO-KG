@@ -17,6 +17,6 @@ export const soilTesting = {
   4: {
     key: 4,
     description: "51 -  soil samples",
-    price: "25 500",
+    price: "R25 500",
   },
 };

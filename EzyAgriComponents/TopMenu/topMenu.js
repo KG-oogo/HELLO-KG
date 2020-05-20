@@ -42,17 +42,19 @@ export default function TopMenu() {
             flexGrow: 1,
             paddingRight: "50%",
             paddingLeft: "5%",
+            fontWeight: "bold",
+            fontSize: 20,
           }}
         >
-          KG Farmer
+          Agri-web
         </Text>
-        <TouchableRipple>
+        <TouchableRipple onPress={() => console.log("pressed")}>
           <Icon size={30} name="shopping-cart" color="#556B2F" />
         </TouchableRipple>
-        <TouchableRipple>
+        <TouchableRipple onPress={() => console.log("pressed")}>
           <Icon size={30} name="person" color="#556B2F" />
         </TouchableRipple>
-        <TouchableRipple>
+        <TouchableRipple onPress={() => console.log("pressed")}>
           <Icon size={30} name="menu" color="#556B2F" />
         </TouchableRipple>
       </View>
@@ -82,6 +84,7 @@ export default function TopMenu() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: "5%",
   },
   view: {
     flexDirection: "row",

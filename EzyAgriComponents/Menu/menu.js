@@ -23,6 +23,7 @@ import { action } from "../Redux/types";
 import { dicArrayConv } from "../Redux/dataConvertor";
 import _ from "lodash";
 import styles from "../styles";
+import { FlatGrid } from "react-native-super-grid";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -138,7 +139,7 @@ function MenuFirstTab(props) {
           )}
         /> */}
 
-        <FlatList
+        {/* <FlatList
           style={{ width: "50%" }}
           numColumns={2}
           data={menuItems}
@@ -150,6 +151,27 @@ function MenuFirstTab(props) {
               }}
             >
               <View key={item.key} style={styles.items}>
+                <Text style={{ color: "#556B2F" }}>{item.name}</Text>
+                <Icon size={80} name={item.icon} color="#556B2F" />
+              </View>
+            </TouchableRipple>
+          )}
+        /> */}
+
+        <FlatGrid
+          itemDimension={130}
+          items={menuItems}
+          style={stylesLocal.gridView}
+          // staticDimension={300}
+          // fixed
+          // spacing={20}
+          renderItem={({ item, index }) => (
+            <TouchableRipple
+              onPress={() => {
+                console.log("hi");
+              }}
+            >
+              <View key={item.key} style={stylesLocal.items}>
                 <Text style={{ color: "#556B2F" }}>{item.name}</Text>
                 <Icon size={80} name={item.icon} color="#556B2F" />
               </View>
@@ -192,16 +214,14 @@ function MenuFirstTab(props) {
 const stylesLocal = StyleSheet.create({
   container: {
     marginTop: "10%",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flex: 1,
   },
   view: {
-    //justifyContent: "flex-start",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-
     flexWrap: "wrap",
     height: "90%",
   },

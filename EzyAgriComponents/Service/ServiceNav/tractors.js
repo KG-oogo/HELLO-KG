@@ -58,6 +58,12 @@ function ServiceTractor(props) {
                     <Text style={styles.text}>Service: {item.service}</Text>
                     <Text style={styles.text}>Price: {item.price}</Text>
                     <Text style={styles.text}>Unit: {item.unit}</Text>
+                    <Button
+                      mode="contained"
+                      onPress={() => console.log("Pressed")}
+                    >
+                      Request Service
+                    </Button>
                   </Card.Content>
                 </Card>
               </TouchableRipple>

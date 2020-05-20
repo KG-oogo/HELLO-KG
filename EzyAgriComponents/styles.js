@@ -3,12 +3,11 @@ import { StyleSheet } from "react-native";
 export default styles = StyleSheet.create({
   container: {
     marginTop: "10%",
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    flex: 1,
   },
   view: {
-    //justifyContent: "flex-start",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
@@ -17,7 +16,7 @@ export default styles = StyleSheet.create({
     height: "90%",
   },
   items: {
-    padding: "15%",
+    padding: "5%",
     justifyContent: "center",
     alignItems: "center",
   },
