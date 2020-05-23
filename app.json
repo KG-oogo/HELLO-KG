@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "hello-KG",
+    "name": "Agri-webSA",
     "slug": "hello-KG",
     "platforms": ["ios", "android", "web"],
-    "version": "3.0.0",
+    "version": "0.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -16,8 +16,8 @@
     },
     "assetBundlePatterns": ["**/*"],
     "android": {
-      "package": "com.kgs.firstapk",
-      "versionCode": 1
+      "package": "com.agriWebSA.v5",
+      "versionCode": 5
     }
   }
 }

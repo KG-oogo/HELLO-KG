@@ -9,12 +9,14 @@ import {
   FlatList,
   TouchableNativeFeedback,
 } from "react-native";
-import { Card, Button } from "react-native-paper";
+import { Card, Button, Badge } from "react-native-paper";
 import { mdiCart, mdiFingerprint } from "@mdi/js";
 import { Icon } from "react-native-elements";
 
 import { Title, TouchableRipple } from "react-native-paper";
-
+import { withNavigation } from "react-navigation";
+import { connect } from "react-redux";
+import { dicArrayConv } from "../Redux/dataConvertor";
 function AgriShopButton() {
   return <Button>Press me</Button>;
 }
@@ -32,25 +34,57 @@ const finger = (name) => {
   console.log(name);
 };
 
-export default function TopMenu() {
+const MyComponent = () => <Badge>{3}</Badge>;
+
+function TopMenu(props) {
   return (
     <View style={styles.container}>
       <View style={styles.view}>
-        <Text
-          style={{
-            color: "#556B2F",
-            flexGrow: 1,
-            paddingRight: "50%",
-            paddingLeft: "5%",
-            fontWeight: "bold",
-            fontSize: 20,
-          }}
-        >
-          Agri-web
-        </Text>
+        {props.main === "yes" ? (
+          <TouchableRipple onPress={() => props.navigation.goBack()}>
+            <Text
+              style={{
+                color: "#556B2F",
+                flexGrow: 1,
+                paddingRight: "40%",
+                paddingLeft: "5%",
+                fontWeight: "bold",
+                fontSize: 20,
+              }}
+            >
+              Agri-webSA
+            </Text>
+          </TouchableRipple>
+        ) : (
+          <TouchableRipple
+            onPress={() => props.navigation.navigate("Application")}
+          >
+            <Text
+              style={{
+                color: "#556B2F",
+                flexGrow: 1,
+                paddingRight: "40%",
+                paddingLeft: "5%",
+                fontWeight: "bold",
+                fontSize: 20,
+              }}
+            >
+              Agri-webSA
+            </Text>
+          </TouchableRipple>
+        )}
+
         <TouchableRipple onPress={() => console.log("pressed")}>
-          <Icon size={30} name="shopping-cart" color="#556B2F" />
+          <React.Fragment>
+            <Icon size={30} name="shopping-cart" color="#556B2F" />
+            {dicArrayConv(props.orders).length === 0 ? (
+              <React.Fragment></React.Fragment>
+            ) : (
+              <Badge>{dicArrayConv(props.orders).length}</Badge>
+            )}
+          </React.Fragment>
         </TouchableRipple>
+
         <TouchableRipple onPress={() => console.log("pressed")}>
           <Icon size={30} name="person" color="#556B2F" />
         </TouchableRipple>
@@ -90,3 +124,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
 });
+
+const mapStateToProps = (state) => ({
+  orders: state.addUpdateReducer.orders,
+});
+
+export default connect(mapStateToProps)(withNavigation(TopMenu));

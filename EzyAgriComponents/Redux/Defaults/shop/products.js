@@ -4,7 +4,7 @@ export const products = {
     name: "Pinapple LOOL",
     description: "Desert pineapple seeds with green center LOOL",
     company: "Company X",
-    picture: require("../../Pictures/seeds1.jpg"),
+    picture: require("../../../Pictures/seeds1.jpg"),
     category: "seeds",
   },
   2: {
@@ -12,7 +12,7 @@ export const products = {
     name: "Murula",
     description: "Tropical seeds from end asia",
     company: "Super",
-    picture: require("../../Pictures/seeds2.jpg"),
+    picture: require("../../../Pictures/seeds2.jpg"),
     category: "seeds",
   },
   3: {
@@ -20,7 +20,7 @@ export const products = {
     name: "Pich Fork",
     description: "Used by Aqua-Man and has magic",
     company: "Justice League",
-    picture: require("../../Pictures/farmTools1.jpg"),
+    picture: require("../../../Pictures/farmTools1.jpg"),
     category: "farm Tools",
   },
   4: {
@@ -29,7 +29,7 @@ export const products = {
     description:
       "Used to gather stuff jjgjhgjhjgjhgjhgjhjhjjgjgjgtryryrtyryrtyryyrryryryyyryry",
     company: "Pirate Co",
-    picture: require("../../Pictures/farmTools2.jpg"),
+    picture: require("../../../Pictures/farmTools2.jpg"),
     category: "farm Tools",
   },
   5: {
@@ -37,7 +37,7 @@ export const products = {
     name: "Artificial Fertilizer",
     description: "Machine Modified Fartilizer",
     company: "Shinigami and Friends",
-    picture: require("../../Pictures/fertilizer1.jpg"),
+    picture: require("../../../Pictures/fertilizer1.jpg"),
     category: "Fertilizer",
   },
   6: {
@@ -45,7 +45,7 @@ export const products = {
     name: "Orginic Fertilizer",
     description: "Made from chicken",
     company: "Hero Inc",
-    picture: require("../../Pictures/fertilizer2.jpg"),
+    picture: require("../../../Pictures/fertilizer2.jpg"),
     category: "Fertilizer",
   },
   7: {
@@ -53,7 +53,7 @@ export const products = {
     name: "Tree Cleaner",
     description: "Used to clean trees of bacteria",
     company: "Konoha X",
-    picture: require("../../Pictures/herbicides1.jpg"),
+    picture: require("../../../Pictures/herbicides1.jpg"),
     category: "Herbicides",
   },
   8: {
@@ -61,7 +61,7 @@ export const products = {
     name: "Crop Insecticide",
     description: "Used to make crops healthy",
     company: "One Piece Company",
-    picture: require("../../Pictures/herbicides1.jpg"),
+    picture: require("../../../Pictures/herbicides1.jpg"),
     category: "Herbicides",
   },
 };

@@ -115,7 +115,7 @@ function MenuFirstTab(props) {
 
   return (
     <View style={styles.container}>
-      <TopMenu />
+      <TopMenu main="yes" />
 
       <View style={styles.view}>
         {/* <FlatList
@@ -168,7 +168,8 @@ function MenuFirstTab(props) {
           renderItem={({ item, index }) => (
             <TouchableRipple
               onPress={() => {
-                console.log("hi");
+                //console.log(props.navigation);
+                props.navigation.navigate(item.redirect);
               }}
             >
               <View key={item.key} style={stylesLocal.items}>

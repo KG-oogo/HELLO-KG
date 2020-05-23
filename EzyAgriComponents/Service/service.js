@@ -53,7 +53,7 @@ export default function ServiceThirdTab() {
 
   return (
     <View style={styles.container}>
-      <TopMenu />
+      <TopMenu main="yes" />
       <View style={styles.view}>
         <TabView
           navigationState={{ index, routes }}

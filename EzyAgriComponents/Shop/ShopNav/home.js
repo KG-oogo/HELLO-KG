@@ -63,7 +63,7 @@ function ShopHome(props) {
           // numColumns={2}
           data={products}
           renderItem={({ item }) => (
-            <Card style={stylesLocal.items}>
+            <Card style={stylesLocal.items} elevation={10}>
               <Card.Content>
                 <Title>{item.name}</Title>
                 <Paragraph>{item.description}</Paragraph>

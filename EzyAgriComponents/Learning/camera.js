@@ -16,20 +16,13 @@ export default function CamKG(props) {
   }, []);
 
   if (hasPermission === null) {
-    return <View style={styles.container} />;
+    return <View />;
   }
   if (hasPermission === false) {
-    return (
-      <View style={styles.container}>
-        <Text>No access to camera</Text>
-        <Button mode="outlined" onPress={props.navigation.goBack()}>
-          Return
-        </Button>
-      </View>
-    );
+    return <Text>No access to camera</Text>;
   }
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       <Camera style={{ flex: 1 }} type={type}>
         <View
           style={{

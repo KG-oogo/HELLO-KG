@@ -44,11 +44,20 @@ import {
   DELETE_CONTACT_METHODS,
 } from "../types";
 
-import { menuItems } from "../Defaults/menuItems";
-import { products } from "../Defaults/products";
-import { soilTesting } from "../Defaults/soilSamples";
-import { tractors } from "../Defaults/tractors";
-import { contactMethods } from "../Defaults/contactMethods";
+import { menuItems } from "../Defaults/menu/menuItems";
+import { products } from "../Defaults/shop/products";
+import { soilTesting } from "../Defaults/service/soilSamples";
+import { tractors } from "../Defaults/service/tractors";
+import { contactMethods } from "../Defaults/support/contactMethods";
+import { weather } from "../Defaults/information/weather";
+import { crop } from "../Defaults/information/crop";
+import { disease, pest } from "../Defaults/information/diagnosis";
+import { cowManagement, cowDiagnosis } from "../Defaults/information/dairy";
+import { news } from "../Defaults/information/news";
+import { videos } from "../Defaults/information/video";
+import { prices } from "../Defaults/produceMarket/prices";
+import { demand } from "../Defaults/produceMarket/demand";
+import { infoMenu } from "../Defaults/information/inforMenu";
 
 import { combineReducers } from "redux";
 
@@ -72,13 +81,31 @@ x(names); // 'John', 'Paul', 'George', 'Ringo'
 export const addUpdateReducer = (
   state = {
     menuItems: menuItems,
+    //Shop
     products: products,
     orders: {},
     favourites: {},
+    //Service
     spraying: {},
     soilTesting: soilTesting,
     tractors: tractors,
+    //Support
     contactMethods: contactMethods,
+    //not fully implemented
+    //Information
+    weather: weather,
+    crop: crop,
+    disease: disease,
+    pest: pest,
+    cowManagement: cowManagement,
+    cowDiagnosis: cowDiagnosis,
+    news: news,
+    videos: videos,
+    //Produce Market
+    myProduce: {},
+    prices: prices,
+    demand: demand,
+    infoMenu: infoMenu,
   },
   action
 ) => {

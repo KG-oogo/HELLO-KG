@@ -8,6 +8,7 @@ import { mdiCart } from "@mdi/js";
 import { Title } from "react-native-paper";
 import TopMenu from "../../TopMenu/topMenu";
 import styles from "../../styles";
+import { withNavigation } from "react-navigation";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -63,7 +64,7 @@ function ServiceSpraying(props) {
       <View style={{ justifyContent: "center", alignItems: "center" }}>
         <Button
           mode="contained"
-          onPress={() => console.log("Pressed")}
+          onPress={() => props.navigation.navigate("")}
           style={{ width: "50%", justifyContent: "center" }}
         >
           Request Spraying
@@ -97,4 +98,4 @@ const mapStateToProps = (state) => ({
   spraying: state.addUpdateReducer.spraying,
 });
 
-export default connect(mapStateToProps)(ServiceSpraying);
+export default connect(mapStateToProps)(withNavigation(ServiceSpraying));

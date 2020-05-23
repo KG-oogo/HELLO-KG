@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import { createSwitchNavigator, createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createMaterialBottomTabNavigator } from "react-navigation-material-bottom-tabs";
+import { createStackNavigator } from "react-navigation-stack";
 //import { createMaterialTopTabNavigator } from "react-navigation-tabs";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -22,6 +23,15 @@ import RegisterFarmerSupport from "../SharedComponents/register";
 import AddService from "./Admin/addServices";
 import AddProducts from "./Admin/addProducts";
 import CamKG from "./Learning/camera";
+
+import ProduceMarket from "./Menu/MenuNav/productMarket";
+
+import Information from "./Menu/MenuNav/infor";
+import CropFarmingInfor from "./Menu/MenuNav/Information/InforNav/cropFarmingInfor";
+import Diagnosis from "./Menu/MenuNav/Information/InforNav/diagnosis";
+import Dairy from "./Menu/MenuNav/Information/InforNav/dairy";
+import News from "./Menu/MenuNav/Information/InforNav/news";
+import Videos from "./Menu/MenuNav/Information/InforNav/videos";
 
 const MenuIcon = (props) => (
   <Ionicons
@@ -112,6 +122,16 @@ const BottomTabNavigator = createMaterialBottomTabNavigator(
   }
 );
 
+const ProduceMarketSwitchNivigator = createSwitchNavigator(
+  {
+    ProduceMarket: ProduceMarket,
+    Application: BottomTabNavigator,
+  },
+  {
+    backBehavior: "initialRoute",
+  }
+);
+
 const SwitchNivigator = createSwitchNavigator(
   {
     Login: Login,
@@ -119,6 +139,14 @@ const SwitchNivigator = createSwitchNavigator(
     AddService: AddService,
     AddProducts: AddProducts,
     CamKG: CamKG,
+    ProduceMarket: ProduceMarketSwitchNivigator,
+
+    Information: Information,
+    CropFarmingInfor: CropFarmingInfor,
+    Diagnosis: Diagnosis,
+    Dairy: Dairy,
+    News: News,
+    Videos: Videos,
   },
   {
     initialRouteName: "Login",

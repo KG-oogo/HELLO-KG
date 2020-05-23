@@ -1,41 +1,33 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { StyleSheet, Text, View, Dimensions } from "react-native";
 import { TabView, SceneMap } from "react-native-tab-view";
 import { TabBar } from "react-native-tab-view";
 
-import ShopHome from "./ShopNav/home";
-import ShopMyOrders from "./ShopNav/myOrders";
-import ShopMyFavourites from "./ShopNav/myFavourites";
+import MyProduce from "./ProduceNav/myProduce";
+import Prices from "./ProduceNav/prices";
+import Demand from "./ProduceNav/demand";
 import { Button } from "react-native-paper";
 import { mdiCart } from "@mdi/js";
 
 import { Title } from "react-native-paper";
 
-import TopMenu from "../TopMenu/topMenu";
-import styles from "../styles";
-
-const FirstRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#ff4081" }]} />
-);
-
-const SecondRoute = () => (
-  <View style={[styles.scene, { backgroundColor: "#673ab7" }]} />
-);
+import TopMenu from "../../../TopMenu/topMenu";
+import styles from "../../../styles";
 
 const initialLayout = { width: Dimensions.get("window").width };
 
-export default function ShopSecondTab() {
+export default function ProduceMarket(props) {
   const [index, setIndex] = useState(0);
   const [routes] = React.useState([
-    { key: "Home", title: "Home" },
-    { key: "Orders", title: "MY Order List" },
-    { key: "Favourites", title: "Favourites" },
+    { key: "MyProduce", title: "My Produce" },
+    { key: "Prices", title: "Prices" },
+    { key: "Demand", title: "Demand" },
   ]);
 
   const renderScene = SceneMap({
-    Home: ShopHome,
-    Orders: ShopMyOrders,
-    Favourites: ShopMyFavourites,
+    MyProduce: MyProduce,
+    Prices: Prices,
+    Demand: Demand,
   });
 
   const renderTabBar = (props) => (
@@ -45,15 +37,11 @@ export default function ShopSecondTab() {
       style={{ backgroundColor: "#556B2F" }}
     />
   );
-  useEffect(() => {
-    //console.log(props);
-    setIndex(0);
-  });
 
   return (
     <View style={styles.container}>
-      <TopMenu main="yes" />
-      <View style={styles.view}>
+      <TopMenu />
+      <View style={stylesLocal.view}>
         <TabView
           navigationState={{ index, routes }}
           renderScene={renderScene}
@@ -88,7 +76,7 @@ const stylesLocal = StyleSheet.create({
     flexDirection: "row",
 
     flexWrap: "wrap",
-    height: "90%",
+    height: "89%",
   },
   scene: {
     flex: 1,

@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { Button, TouchableRipple } from "react-native-paper";
+
+import {
+  Avatar,
+  Button,
+  Card,
+  Title,
+  Paragraph,
+  TouchableRipple,
+  Searchbar,
+} from "react-native-paper";
+
 import { connect } from "react-redux";
-
-import { dicArrayConv } from "../../Redux/dataConvertor";
-import { deleteDataTransaction } from "../../Redux/types";
 import { mdiCart } from "@mdi/js";
+import { dicArrayConv } from "../../../../Redux/dataConvertor";
+import { addUpdateDataTransaction } from "../../../../Redux/types";
 
-import { Title } from "react-native-paper";
-import TopMenu from "../../TopMenu/topMenu";
+import TopMenu from "../../../../TopMenu/topMenu";
+
+import styles from "../../../../styles";
+
+import { withNavigation } from "react-navigation";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -24,7 +36,7 @@ icon={({ size, color }) => (
 */
 const finger = (action) => {
   //console.log(action);
-  /* action("ADD_UPDATE_MENU_ITEMS", {
+  /*  action("ADD_UPDATE_MENU_ITEMS", {
     10: {
       key: 10,
       name: "Input Shop",
@@ -34,21 +46,24 @@ const finger = (action) => {
   //console.log("after");
 };
 
-function ShopMyOrders(props) {
-  const [products, setProducts] = useState(dicArrayConv(props.products));
-
+function MyProduce(props) {
+  const [myProduce, setMyProduce] = useState(dicArrayConv(props.myProduce));
+  const [searchQuery, setSearchQuery] = useState("");
+  const onChangeSearch = () => {
+    console.log("");
+  };
   return (
     <View style={stylesLocal.container}>
       <View style={stylesLocal.view}>
-        {products.length === 0 ? (
-          <Text>You have no products selected</Text>
+        {myProduce.length === 0 ? (
+          <Text>You have no Produce entered</Text>
         ) : (
           <FlatList
             style={{ width: "100%", height: "100%", padding: "5%" }}
             // numColumns={2}
-            data={products}
+            data={myProduce}
             renderItem={({ item }) => (
-              <Card style={stylesLocal.items} elevation={10}>
+              <Card style={stylesLocal.items}>
                 <Card.Content>
                   <Title>{item.name}</Title>
                   <Paragraph>{item.description}</Paragraph>
@@ -68,6 +83,14 @@ function ShopMyOrders(props) {
             )}
           />
         )}
+        <View>
+          <Button
+            mode="contained"
+            onPress={() => props.navigation.navigate("")}
+          >
+            Add Produce
+          </Button>
+        </View>
       </View>
     </View>
   );
@@ -96,7 +119,7 @@ const stylesLocal = StyleSheet.create({
 });
 
 const mapStateToProps = (state) => ({
-  orders: state.addUpdateReducer.orders,
+  myProduce: state.addUpdateReducer.myProduce,
 });
 
-export default connect(mapStateToProps)(ShopMyOrders);
+export default connect(mapStateToProps)(withNavigation(MyProduce));

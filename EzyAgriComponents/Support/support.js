@@ -65,7 +65,7 @@ function SupportFouthTab(props) {
   //console.log(dicArrayConv(props.contactMethods)[0].redirect);
   return (
     <View style={styles.container}>
-      <TopMenu />
+      <TopMenu main="yes" />
       <View style={styles.view}>
         <FlatList
           keyExtractor={(items) => items.name}
