@@ -50,6 +50,9 @@ export const GET_CONTACT_METHODS = "GET_CONTACT_METHOD";
 export const ADD_UPDATE_CONTACT_METHODS = "ADD_UPDATE_CONTACT_METHOD";
 export const DELETE_CONTACT_METHODS = "DELETE_CONTACT_METHOD";
 
+// Farm Prep
+export const ADD_UPDATE_FIELD = "ADD_UPDATE_FIELD";
+
 // Action Creators data = {type:<<>>, payload:<<>>}
 // payload:"name"
 export const action = (type, payload) => {
@@ -59,15 +62,16 @@ export const action = (type, payload) => {
 };
 
 // This compliments Action creator "action"
-export const addUpdateDataTransaction = (
-  state,
-  action,
-  actionType,
-  payload
-) => {
-  const stateLen = state.length;
-  const nextIndex = stateLen + 1;
-
+// It formats the (actionType, payload) to be dispatched
+// Parameters:
+//      state - array from front end dicArrayConv
+//      action - imported action creator "action"
+//      actionType - imported action type
+//      payload -  the data to be changed
+export const addUpdateDataTransaction = (nextIndex, actionType, payload) => {
+  //const stateLen = state.length;
+  //const nextIndex = stateLen + 1;
+  //console.log("addUpdateDataTransaction");
   /* action("ADD_UPDATE_MENU_ITEMS", {
         10: {
           key: 10,
@@ -75,13 +79,26 @@ export const addUpdateDataTransaction = (
           icon: "shopping-cart",
         },
       }); */
-  const finalObject = {
+
+  /* const finalObject = {
     [nextIndex]: { actionType: actionType, payload: payload },
+  }; */
+  //console.log(finalObject);
+  //action(actionType, finalObject);
+
+  return (dispatch, ownProps) => {
+    dispatch({ type: actionType, payload: payload });
   };
-  action(actionType, finalObject);
 };
 
 // This compliments Action creator "action"
+// It formats the (actionType, payload) to be dispatched
+// This is still work in progress
+// Parameters:
+//      state - array from front end dicArrayConv
+//      action - imported action creator "action"
+//      actionType - imported action type
+//      payload -  the data to be changed
 export const deleteDataTransaction = (action, actionType, payload) => {
   action(actionType, payload);
 };

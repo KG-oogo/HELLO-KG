@@ -35,7 +35,7 @@ const finger = (action) => {
 
 function ShopMyFavourites(props) {
   const [favourites, setfavourites] = useState(dicArrayConv(props.favourites));
-  console.log(favourites);
+  //console.log(favourites);
   return (
     <View style={stylesLocal.container}>
       <View style={stylesLocal.view}>

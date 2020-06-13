@@ -23,15 +23,25 @@ import RegisterFarmerSupport from "../SharedComponents/register";
 import AddService from "./Admin/addServices";
 import AddProducts from "./Admin/addProducts";
 import CamKG from "./Learning/camera";
+import { MapKG } from "./Menu/MenuNav/FarmPrep";
+import PolygonCreator from "./Learning/polygonCreator";
 
 import ProduceMarket from "./Menu/MenuNav/productMarket";
 
+// Information Nav
 import Information from "./Menu/MenuNav/infor";
 import CropFarmingInfor from "./Menu/MenuNav/Information/InforNav/cropFarmingInfor";
 import Diagnosis from "./Menu/MenuNav/Information/InforNav/diagnosis";
 import Dairy from "./Menu/MenuNav/Information/InforNav/dairy";
 import News from "./Menu/MenuNav/Information/InforNav/news";
 import Videos from "./Menu/MenuNav/Information/InforNav/videos";
+
+// Farm Prep Nav
+import farmPrep from "./Menu/MenuNav/FarmPrep";
+import SoilTesting from "./Menu/MenuNav/FarmPrep/PrepNav/soilTesting";
+
+// Farm Manager
+import FarmManager from "./Menu/MenuNav/FarmManager";
 
 const MenuIcon = (props) => (
   <Ionicons
@@ -147,6 +157,12 @@ const SwitchNivigator = createSwitchNavigator(
     Dairy: Dairy,
     News: News,
     Videos: Videos,
+
+    farmPrep: farmPrep,
+    //MapKG: MapKG,
+    SoilTesting: SoilTesting,
+
+    FarmManager: FarmManager,
   },
   {
     initialRouteName: "Login",

@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   FlatList,
   TouchableNativeFeedback,
+  Dimensions,
 } from "react-native";
 import { Card, Button, Badge } from "react-native-paper";
 import { mdiCart, mdiFingerprint } from "@mdi/js";
@@ -17,6 +18,12 @@ import { Title, TouchableRipple } from "react-native-paper";
 import { withNavigation } from "react-navigation";
 import { connect } from "react-redux";
 import { dicArrayConv } from "../Redux/dataConvertor";
+
+import { useSpring, animated } from "react-spring";
+
+const initialLayout = { width: Dimensions.get("window").width };
+console.log(typeof initialLayout);
+
 function AgriShopButton() {
   return <Button>Press me</Button>;
 }
@@ -37,6 +44,9 @@ const finger = (name) => {
 const MyComponent = () => <Badge>{3}</Badge>;
 
 function TopMenu(props) {
+  const move = useSpring({
+    rotate: 45,
+  });
   return (
     <View style={styles.container}>
       <View style={styles.view}>
@@ -122,6 +132,7 @@ const styles = StyleSheet.create({
   },
   view: {
     flexDirection: "row",
+    width: initialLayout["width"],
   },
 });
 

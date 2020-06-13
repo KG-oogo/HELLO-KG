@@ -50,6 +50,7 @@ function ShopHome(props) {
   const onChangeSearch = () => {
     console.log("");
   };
+
   return (
     <View style={stylesLocal.container}>
       <View style={stylesLocal.view}>

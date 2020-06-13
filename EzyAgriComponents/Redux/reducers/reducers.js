@@ -42,6 +42,9 @@ import {
   GET_CONTACT_METHODS,
   ADD_UPDATE_CONTACT_METHODS,
   DELETE_CONTACT_METHODS,
+
+  // FarmPrep
+  ADD_UPDATE_FIELD,
 } from "../types";
 
 import { menuItems } from "../Defaults/menu/menuItems";
@@ -58,6 +61,8 @@ import { videos } from "../Defaults/information/video";
 import { prices } from "../Defaults/produceMarket/prices";
 import { demand } from "../Defaults/produceMarket/demand";
 import { infoMenu } from "../Defaults/information/inforMenu";
+import { soilTestingFieldInputs } from "../Defaults/FarmPrep/soilTestingFieldInputs";
+import { farmManagerItems } from "../Defaults/FarmManager/farmManagerItems";
 
 import { combineReducers } from "redux";
 
@@ -106,6 +111,13 @@ export const addUpdateReducer = (
     prices: prices,
     demand: demand,
     infoMenu: infoMenu,
+
+    //Farm Prep
+    fields: {},
+    soilTestingFieldInputs: soilTestingFieldInputs,
+
+    //Farm Manager
+    farmManagerItems: farmManagerItems,
   },
   action
 ) => {
@@ -140,15 +152,50 @@ export const addUpdateReducer = (
         action.payload[Object.keys(action.payload)[0]];
       return state;
 
-    case ADD_UPDATE_SOIL_TESTING:
-      state.soilTesting[Object.keys(action.payload)[0]] =
-        action.payload[Object.keys(action.payload)[0]];
-      return state;
-
     case ADD_UPDATE_TRACTORS:
       state.tractor[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];
       return state;
+
+    case ADD_UPDATE_FIELD:
+      //console.log("ADD_UPDATE_FIELD");
+      //console.log(Object.keys(action.payload)[0]);
+      //console.log(Object.keys(action.payload));
+      //console.log(state.fields);
+      //console.log(Object.keys(action.payload));
+
+      state.fields[Object.keys(action.payload)[0]] =
+        action.payload[Object.keys(action.payload)[0]];
+
+      /*
+      state.fields = {
+        ...state.fields,
+        [Object.keys(action.payload)[0]]:
+          action.payload[Object.keys(action.payload)[0]],
+      };*/
+
+      return state;
+
+    case ADD_UPDATE_SOIL_TESTING:
+      // add soil testing info to field
+      const soilTests = {
+        ...state.fields[action.payload.key],
+        soil_testing: action.payload.soil_testing,
+      };
+
+      // Add new field to fields
+      const fields = { ...state.fields, [action.payload.key]: soilTests };
+      /* state.fields = {
+        ...state.fields[action.payload.key],
+        soil_testing: action.payload.soil_testing,
+      }; */
+
+      //console.log(state.fields);
+      //console.log(soilTests);
+      // add new fields to state
+      return { ...state, ["fields"]: fields };
+    /////////////////
+
     default:
       return state;
   }

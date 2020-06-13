@@ -1,6 +1,6 @@
 export const crop = {
-  1: {
-    key: 1,
+  "1": {
+    key: "1",
     crop_name: "Rice",
     crop_description:
       "Rice has been gathered and cultivated world-wide for 10000 years",
@@ -10,8 +10,8 @@ export const crop = {
     crop_post_harvest: "Rice is dried in open air on tarpaulins or drying yard",
     crop_picture: "../../Pictures/",
   },
-  2: {
-    key: 2,
+  "2": {
+    key: "2",
     crop_name: "Coffee",
     crop_description: "Robusta and Arabca coffee",
     crop_land_prep:
@@ -23,8 +23,8 @@ export const crop = {
       "Put freshly harvested cherries into sufficient water to float unfilled fruits and extraneous materials",
     crop_picture: "../../Pictures/",
   },
-  3: {
-    key: 3,
+  "3": {
+    key: "3",
     crop_name: "Egg Plant",
     crop_description:
       "Eggplants are moderately deep rooting and can be grown on a wide range of soils.",

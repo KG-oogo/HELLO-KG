@@ -1,0 +1,43 @@
+<svg 
+   version="1.1"
+   viewBox="0 0 210 297"
+   height="297mm"
+   width="210mm">
+   
+   
+  
+  
+    <ellipse
+       cx="97.895828"
+       cy="97.050598"
+       rx="50.186996"
+       ry="51.698898"
+       id="path4558"
+       style="opacity:1;fill:#aa0000;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient4576);stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       y="129.53355"
+       x="93.590408"
+       height="115.95608"
+       width="8.6108398"
+       id="rect4560"
+       style="opacity:1;fill:#aa0000;fill-opacity:1;fill-rule:evenodd;stroke:#048500;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <ellipse
+       style="opacity:1;fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient6471);stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="ellipse6469"
+       ry="46.71196"
+       rx="45.345898"
+       cy="92.06366"
+       cx="93.054726" />
+    <path
+       id="ellipse4923"
+       d="M 106.89387,57.521441 C 126.7379,66.027508 93.706492,71.550781 85.288264,91.1899 76.870037,110.82901 96.252816,137.14705 76.408778,128.64099 56.564736,120.13492 47.302279,97.318748 55.720504,77.679623 64.13873,58.040502 87.049826,49.015376 106.89387,57.521441 Z"
+       style="opacity:1;fill:url(#meshgradient6455);fill-opacity:1;fill-rule:evenodd;stroke:#f32500;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+    <rect
+       style="opacity:1;fill:#ff2a2a;fill-opacity:1;fill-rule:evenodd;stroke:#048500;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect6473"
+       width="3.3355119"
+       height="97.49736"
+       x="93.45755"
+       y="148.12512" />
+ 
+</svg>

@@ -1,30 +1,30 @@
 export const products = {
-  1: {
-    key: 1,
+  "1": {
+    key: "1",
     name: "Pinapple LOOL",
     description: "Desert pineapple seeds with green center LOOL",
     company: "Company X",
     picture: require("../../../Pictures/seeds1.jpg"),
     category: "seeds",
   },
-  2: {
-    key: 2,
+  "2": {
+    key: "2",
     name: "Murula",
     description: "Tropical seeds from end asia",
     company: "Super",
     picture: require("../../../Pictures/seeds2.jpg"),
     category: "seeds",
   },
-  3: {
-    key: 3,
+  "3": {
+    key: "3",
     name: "Pich Fork",
     description: "Used by Aqua-Man and has magic",
     company: "Justice League",
     picture: require("../../../Pictures/farmTools1.jpg"),
     category: "farm Tools",
   },
-  4: {
-    key: 4,
+  "4": {
+    key: "4",
     name: "Raik",
     description:
       "Used to gather stuff jjgjhgjhjgjhgjhgjhjhjjgjgjgtryryrtyryrtyryyrryryryyyryry",
@@ -32,32 +32,32 @@ export const products = {
     picture: require("../../../Pictures/farmTools2.jpg"),
     category: "farm Tools",
   },
-  5: {
-    key: 5,
+  "5": {
+    key: "5",
     name: "Artificial Fertilizer",
     description: "Machine Modified Fartilizer",
     company: "Shinigami and Friends",
     picture: require("../../../Pictures/fertilizer1.jpg"),
     category: "Fertilizer",
   },
-  6: {
-    key: 6,
+  "6": {
+    key: "6",
     name: "Orginic Fertilizer",
     description: "Made from chicken",
     company: "Hero Inc",
     picture: require("../../../Pictures/fertilizer2.jpg"),
     category: "Fertilizer",
   },
-  7: {
-    key: 7,
+  "7": {
+    key: "7",
     name: "Tree Cleaner",
     description: "Used to clean trees of bacteria",
     company: "Konoha X",
     picture: require("../../../Pictures/herbicides1.jpg"),
     category: "Herbicides",
   },
-  8: {
-    key: 8,
+  "8": {
+    key: "8",
     name: "Crop Insecticide",
     description: "Used to make crops healthy",
     company: "One Piece Company",

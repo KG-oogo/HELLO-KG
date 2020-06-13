@@ -1,6 +1,6 @@
 export const disease = {
-  1: {
-    key: 1,
+  "1": {
+    key: "1",
     crop_name: "Rice",
     crop_disease: "Rice blast",
     disease_cause: "",
@@ -8,8 +8,8 @@ export const disease = {
     disease_identification: "White to grey-green spots with dark green borders",
     disease_control: "Avoid excessive use of nitrogen",
   },
-  2: {
-    key: 2,
+  "2": {
+    key: "2",
     crop_name: "Coffee",
     crop_disease: "Red blister disease",
     disease_cause: "sdfsdfsdfsf",
@@ -17,8 +17,8 @@ export const disease = {
     disease_identification: "dsfsdfsdfsdf",
     disease_control: "fsdfsdfsdfsd",
   },
-  3: {
-    key: 3,
+  "3": {
+    key: "3",
     crop_name: "Egg Plant",
     crop_disease: "Early Blight",
     disease_cause: "sfdfsdfsdfs",
@@ -29,8 +29,8 @@ export const disease = {
 };
 
 export const pest = {
-  1: {
-    key: 1,
+  "1": {
+    key: "1",
     crop_name: "Rice",
     crop_pest: "Stalked-eye fly",
     pest_description: "Infests during seedling stage to maturity",
@@ -38,16 +38,16 @@ export const pest = {
       "Broad longitudinal whitish discoloured areas at feeding sites",
     pest_control: "Using optimal fertilizer",
   },
-  2: {
-    key: 2,
+  "2": {
+    key: "2",
     crop_name: "Coffee",
     crop_pest: "Antestia bug",
     pest_description: "sdfsdfs",
     pest_identification: "sdfsdfsdfsfsdfsdfsdfd",
     pest_control: "dfsfsdfsdfdfzcdasxaxaxa",
   },
-  3: {
-    key: 3,
+  "3": {
+    key: "3",
     crop_name: "Egg Plant",
     crop_pest: "Leaf Hoppers",
     pest_description: "dfsdfsfsdfsf",
