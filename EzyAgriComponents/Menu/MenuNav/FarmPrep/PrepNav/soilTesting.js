@@ -47,6 +47,13 @@ function SoilTesting(props) {
   const [cropRecomendations, setCropRecomendations] = useState("");
   const [fertilizerRecomendations, setFertilizerRecomendations] = useState("");
 
+  const [soilTestObject, setSoilTestObject] = useState({
+    soil_type: "",
+    soil_category: "",
+    crop_recomendations: "",
+    fertilizer_recomendations: "",
+  });
+
   // What ever field information that changes is added to this list -- ON HOLD
   // [{fieldName:"x",
   //   soilTestInfo:[{ soil_type:"x", soil_category:"x", crop_recommendations:"x", fertilizer_recomendation:"x"}]]
@@ -59,40 +66,6 @@ function SoilTesting(props) {
   //const [inputNamesetFieldName]
 
   const handlePress = () => setExpanded(!expanded);
-
-  const addToField = (fields, newFieldName, newFieldLonLat) => {
-    let nextIndex = "";
-    let exists = 0;
-
-    // If key exists
-    for (let i = 0; i < fields.length; i++) {
-      if (
-        Object.keys(fields[i]).filter((e) => e !== "key")[0] ===
-        newFieldName.trim()
-      ) {
-        nextIndex = fields[i]["key"];
-        exists = 1;
-        break;
-      }
-    }
-
-    // If variable nextIndex is empty
-    // If key doesnt exist
-    /*if (exists === 0) {
-      nextIndex = (fields.length + 1).toString();
-    }
-    */
-
-    const payload = {
-      [nextIndex]: {
-        key: nextIndex,
-        [newFieldName.trim()]: newFieldLonLat,
-      },
-    };
-    props.addUpdateDataTransaction(nextIndex, ADD_UPDATE_FIELD, payload);
-
-    setFields(dicArrayConv(props.fields));
-  };
 
   ////////////////////////////////////// array "newInformation"
   const newInformation = () => {
@@ -168,6 +141,33 @@ function SoilTesting(props) {
     showDialog();
   };
 
+  const displaySoilTestObject = () => {
+    /* for (const [key, value] of Object.entries(soilTestObject)) {
+      return (
+        <TextInput
+          label={key}
+          placeholder={"ENTER " + key}
+          onChangeText={(e) => setSoilTestObject({ ...soilTestObject, key: e })}
+        />
+      );
+    } 
+    ////////////////////////////////
+    //const [k, val] = value;
+      //console.log(k);
+    */
+    Object.entries(soilTestObject).map((value, key, arr) => (
+      <React.Fragment>
+        <TextInput
+          label={value[0]}
+          placeholder={"ENTER " + value[0]}
+          //onChangeText={(e) => setSoilTestObject({ ...soilTestObject, k: e })}
+        />
+        {console.log("Hi")}
+        <Text>Hi</Text>
+      </React.Fragment>
+    ));
+  };
+
   return (
     <React.Fragment>
       <View style={styles.container}>
@@ -185,7 +185,7 @@ function SoilTesting(props) {
                     value["key"] //Object.keys(value).filter((v, i, a) => v === "key")[0]
                   )
                 }
-                key={index}
+                key={value}
               >
                 <Text style={{ textAlign: "center", fontSize: 35 }}>
                   {value["field_name"]}
@@ -205,20 +205,62 @@ function SoilTesting(props) {
                 placeholder={"Enter Field Name"}
                 onChangeText={(e) => setFieldName(e)}
                 style={{ width: "80%" }}
-              /> */}
-              {soilTestingFieldInputs.map((value, index, arr) => (
-                <React.Fragment key={value.key}>
-                  <List.Item title={value.input_name}></List.Item>
+              /> 
+              soil_type: "",
+    soil_category: "",
+    crop_recomendations: "",
+    fertilizer_recomendations: "",
+              
+              */}
+              {
+                <React.Fragment>
                   <TextInput
-                    placeholder={"ENTER " + value.input_name}
-                    onChangeText={(e) => eval("(" + value.set + ")")}
+                    label={"Soil Type"}
+                    placeholder={"ENTER Soil Type"}
+                    value={soilTestObject.soil_type}
+                    onChangeText={(e) =>
+                      setSoilTestObject({ ...soilTestObject, soil_type: e })
+                    }
+                  />
+
+                  <TextInput
+                    label={"Soil Category"}
+                    placeholder={"ENTER SOIL CATEGORY"}
+                    value={soilTestObject.soil_category}
+                    onChangeText={(e) =>
+                      setSoilTestObject({ ...soilTestObject, soil_category: e })
+                    }
+                  />
+
+                  <TextInput
+                    label={"Crop Recomendations"}
+                    placeholder={"ENTER CROP RECOMENDATIONS"}
+                    value={soilTestObject.crop_recomendations}
+                    onChangeText={(e) =>
+                      setSoilTestObject({
+                        ...soilTestObject,
+                        crop_recomendations: e,
+                      })
+                    }
+                  />
+
+                  <TextInput
+                    label={"Fertilizer Recomendations"}
+                    placeholder={"ENTER FERTILIZER RECOMENDATIONS"}
+                    value={soilTestObject.fertilizer_recomendations}
+                    onChangeText={(e) =>
+                      setSoilTestObject({
+                        ...soilTestObject,
+                        fertilizer_recomendations: e,
+                      })
+                    }
                   />
                 </React.Fragment>
-              ))}
+              }
             </Dialog.Content>
             <Dialog.Actions>
               <Button
-                onPress={() => updateInformation(recordKey, newInformation())}
+                onPress={() => updateInformation(recordKey, soilTestObject)}
               >
                 Add Soil Results
               </Button>
@@ -229,6 +271,36 @@ function SoilTesting(props) {
     </React.Fragment>
   );
 }
+
+/* OLD ENTER SOIL RESULTS
+{soilTestingFieldInputs.map((value, index, arr) => (
+                <React.Fragment key={value.key}>
+                   <List.Item title={value.input_name}></List.Item> 
+                  <TextInput
+                    label={value.input_name}
+                    placeholder={"ENTER " + value.input_name}
+                    onChangeText={(e) => eval("(" + value.set + ")")}
+                  />
+                </React.Fragment>
+              ))}
+
+{Object.entries(soilTestObject).map((value, key, arr) => {
+                return (
+                  <React.Fragment key={key}>
+                    <TextInput
+                      label={value[0].replace("_", " ").toUpperCase()}
+                      placeholder={
+                        "ENTER " + value[0].replace("_", " ").toUpperCase()
+                      }
+                      onChangeText={
+                        (e) => console.log("pressed")
+                         setSoilTestObject({ ...soilTestObject, [value[0]]: e }) 
+                      }
+                      />
+                    </React.Fragment>
+                  );
+                })}
+*/
 
 const stylesLocal = StyleSheet.create({
   listItem: {

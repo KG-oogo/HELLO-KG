@@ -31,9 +31,6 @@ import {
   GET_SPRAYING_REQUEST,
   ADD_UPDATE_SPRAYING_REQUEST,
   DELETE_SPRAYING_REQUEST,
-  GET_SOIL_TESTING,
-  ADD_UPDATE_SOIL_TESTING,
-  DELETE_SOIL_TESTING,
   GET_TRACTORS,
   ADD_UPDATE_TRACTORS,
   DELETE_TRACTORS,
@@ -45,6 +42,14 @@ import {
 
   // FarmPrep
   ADD_UPDATE_FIELD,
+
+  // Soil Testing
+  GET_SOIL_TESTING,
+  ADD_UPDATE_SOIL_TESTING,
+  DELETE_SOIL_TESTING,
+
+  // Crop Plan
+  ADD_UPDATE_CROP_PLAN,
 } from "../types";
 
 import { menuItems } from "../Defaults/menu/menuItems";
@@ -63,6 +68,7 @@ import { demand } from "../Defaults/produceMarket/demand";
 import { infoMenu } from "../Defaults/information/inforMenu";
 import { soilTestingFieldInputs } from "../Defaults/FarmPrep/soilTestingFieldInputs";
 import { farmManagerItems } from "../Defaults/FarmManager/farmManagerItems";
+import { fields } from "../Defaults/FarmPrep/fields";
 
 import { combineReducers } from "redux";
 
@@ -184,16 +190,41 @@ export const addUpdateReducer = (
       };
 
       // Add new field to fields
-      const fields = { ...state.fields, [action.payload.key]: soilTests };
+      const fieldsWithSoilTesting = {
+        ...state.fields,
+        [action.payload.key]: soilTests,
+      };
+      /* state.fields = {
+          ...state.fields[action.payload.key],
+          soil_testing: action.payload.soil_testing,
+        }; */
+
+      //console.log(state.fields);
+      //console.log(soilTests);
+      // add new fields to state
+      return { ...state, ["fields"]: fieldsWithSoilTesting };
+
+    case ADD_UPDATE_CROP_PLAN:
+      // add soil testing info to field
+      const cropPlan = {
+        ...state.fields[action.payload.key],
+        crop_planning: action.payload.crop_planning,
+      };
+
+      // Add new field to fields
+      const fieldsWithCropPlan = {
+        ...state.fields,
+        [action.payload.key]: cropPlan,
+      };
       /* state.fields = {
         ...state.fields[action.payload.key],
         soil_testing: action.payload.soil_testing,
       }; */
 
-      //console.log(state.fields);
+      // console.log(fieldsWithCropPlan);
       //console.log(soilTests);
       // add new fields to state
-      return { ...state, ["fields"]: fields };
+      return { ...state, ["fields"]: fieldsWithCropPlan };
     /////////////////
 
     default:

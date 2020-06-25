@@ -123,6 +123,7 @@ function MapKG(props) {
         <View style={stylesLocal.mapContainer}>
           <MapView
             style={stylesLocal.mapStyle}
+            mapType={"satellite"}
             onPress={(e) => addMarker(e.nativeEvent.coordinate)}
             region={
               location === null

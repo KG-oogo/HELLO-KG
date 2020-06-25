@@ -4,7 +4,7 @@ export const farmManagerItems = {
     name: "Field Management",
     //icon: "cast",
     icon: "business",
-    redirect: "Application",
+    redirect: "FieldManagement",
   },
   "2": {
     key: "2",

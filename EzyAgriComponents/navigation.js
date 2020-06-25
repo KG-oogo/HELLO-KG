@@ -42,6 +42,7 @@ import SoilTesting from "./Menu/MenuNav/FarmPrep/PrepNav/soilTesting";
 
 // Farm Manager
 import FarmManager from "./Menu/MenuNav/FarmManager";
+import FieldManagement from "./Menu/MenuNav/FarmManager/FarmManagerNav/fieldManagement";
 
 const MenuIcon = (props) => (
   <Ionicons
@@ -163,6 +164,7 @@ const SwitchNivigator = createSwitchNavigator(
     SoilTesting: SoilTesting,
 
     FarmManager: FarmManager,
+    FieldManagement: FieldManagement,
   },
   {
     initialRouteName: "Login",
