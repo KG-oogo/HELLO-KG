@@ -25,9 +25,9 @@ export default function ProduceMarket(props) {
   ]);
 
   const renderScene = SceneMap({
-    MyProduce: MyProduce,
-    Prices: Prices,
-    Demand: Demand,
+    MyProduce: () => <MyProduce />,
+    Prices: () => <Prices />,
+    Demand: () => <Demand />,
   });
 
   const renderTabBar = (props) => (

@@ -32,7 +32,7 @@ export const menuItems = {
   },
   "6": {
     key: "6",
-    name: "Produce Market",
+    name: "Market",
     icon: "monetization-on",
     redirect: "ProduceMarket",
   },

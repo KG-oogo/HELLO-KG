@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList } from "react-native";
+import { StyleSheet, Text, View, FlatList, Image } from "react-native";
 
 import {
   Avatar,
@@ -59,35 +59,40 @@ function ShopHome(props) {
           onChangeText={(e) => setSearchQuery(e)}
           value={searchQuery}
         />
-        <FlatList
-          style={{ width: "100%", height: "100%", padding: "5%" }}
-          // numColumns={2}
-          data={products}
-          renderItem={({ item }) => (
-            <Card style={stylesLocal.items} elevation={10}>
-              <Card.Content>
-                <Title>{item.name}</Title>
-                <Paragraph>{item.description}</Paragraph>
-              </Card.Content>
-              {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
-              <Card.Cover source={item.picture} />
-              <Card.Actions style={{ justifyContent: "space-between" }}>
-                <Button
-                  icon="check"
-                  mode="contained"
-                  onPress={() => console.log("Pressed")}
-                >
-                  Order
-                </Button>
-                <Button
-                  icon="star"
-                  mode="contained"
-                  onPress={() => console.log("Pressed")}
-                ></Button>
-              </Card.Actions>
-            </Card>
-          )}
-        />
+        {products.length === 0 ? (
+          <Text>You have no products on the market</Text>
+        ) : (
+          <FlatList
+            style={{ width: "100%", height: "100%", padding: "5%" }}
+            // numColumns={2}
+            data={products}
+            renderItem={({ item }) => (
+              <Card style={stylesLocal.items} elevation={10}>
+                <Card.Content>
+                  <Title>{item.products.name}</Title>
+                  <Paragraph>{item.products.description}</Paragraph>
+                </Card.Content>
+                {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
+                <Card.Cover source={{ uri: item.products.picture }} />
+
+                <Card.Actions style={{ justifyContent: "space-between" }}>
+                  <Button
+                    icon="check"
+                    mode="contained"
+                    onPress={() => console.log("Pressed")}
+                  >
+                    Order
+                  </Button>
+                  <Button
+                    icon="star"
+                    mode="contained"
+                    onPress={() => console.log("Pressed")}
+                  ></Button>
+                </Card.Actions>
+              </Card>
+            )}
+          />
+        )}
       </View>
     </View>
   );
@@ -95,24 +100,33 @@ function ShopHome(props) {
 
 const stylesLocal = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
+    //flex: 1,
   },
   view: {
-    justifyContent: "center",
-    alignItems: "center",
+    //justifyContent: "center",
+    //alignItems: "center",
     //flexDirection: "row",
 
     flexWrap: "wrap",
+    height: "100%",
   },
   items: {
-    margin: "5%",
-
-    ///justifyContent: "center",
+    //margin: "5%",
+    //width: "45%",
+    //justifyContent: "center",
     //alignItems: "center",
   },
-  card: { paddingVertical: "15%" },
+  card: {
+    //paddingVertical: "15%",
+  },
+  searchbar: {
+    //justifyContent: "center",
+    //alignItems: "center",
+    //flexDirection: "row",
+    //flexWrap: "wrap",
+  },
 });
 
 const mapStateToProps = (state) => ({

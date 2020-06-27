@@ -50,6 +50,9 @@ import {
 
   // Crop Plan
   ADD_UPDATE_CROP_PLAN,
+
+  //Market
+  ADD_UPDATE_MY_PRODUCE,
 } from "../types";
 
 import { menuItems } from "../Defaults/menu/menuItems";
@@ -93,7 +96,7 @@ export const addUpdateReducer = (
   state = {
     menuItems: menuItems,
     //Shop
-    products: products,
+    products: {},
     orders: {},
     favourites: {},
     //Service
@@ -145,6 +148,12 @@ export const addUpdateReducer = (
       state.products[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];
       return state;
+
+    case ADD_UPDATE_MY_PRODUCE:
+      state.myProduce[Object.keys(action.payload)[0]] =
+        action.payload[Object.keys(action.payload)[0]];
+      return state;
+
     case ADD_UPDATE_ORDERS:
       state.orders[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];

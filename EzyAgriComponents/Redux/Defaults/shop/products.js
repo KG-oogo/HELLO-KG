@@ -6,6 +6,7 @@ export const products = {
     company: "Company X",
     picture: require("../../../Pictures/seeds1.jpg"),
     category: "seeds",
+    user_id: "1",
   },
   "2": {
     key: "2",
@@ -14,6 +15,7 @@ export const products = {
     company: "Super",
     picture: require("../../../Pictures/seeds2.jpg"),
     category: "seeds",
+    user_id: "1",
   },
   "3": {
     key: "3",
@@ -22,6 +24,7 @@ export const products = {
     company: "Justice League",
     picture: require("../../../Pictures/farmTools1.jpg"),
     category: "farm Tools",
+    user_id: "2",
   },
   "4": {
     key: "4",
@@ -31,6 +34,7 @@ export const products = {
     company: "Pirate Co",
     picture: require("../../../Pictures/farmTools2.jpg"),
     category: "farm Tools",
+    user_id: "2",
   },
   "5": {
     key: "5",
@@ -39,6 +43,7 @@ export const products = {
     company: "Shinigami and Friends",
     picture: require("../../../Pictures/fertilizer1.jpg"),
     category: "Fertilizer",
+    user_id: "2",
   },
   "6": {
     key: "6",
@@ -47,6 +52,7 @@ export const products = {
     company: "Hero Inc",
     picture: require("../../../Pictures/fertilizer2.jpg"),
     category: "Fertilizer",
+    user_id: "3",
   },
   "7": {
     key: "7",
@@ -55,6 +61,7 @@ export const products = {
     company: "Konoha X",
     picture: require("../../../Pictures/herbicides1.jpg"),
     category: "Herbicides",
+    user_id: "3",
   },
   "8": {
     key: "8",
@@ -63,5 +70,6 @@ export const products = {
     company: "One Piece Company",
     picture: require("../../../Pictures/herbicides1.jpg"),
     category: "Herbicides",
+    user_id: "3",
   },
 };
