@@ -33,7 +33,7 @@ export default function farmPrep() {
   */
 
   const renderScene = SceneMap({
-    FieldSelection: () => <MapKG />,
+    FieldSelection: MapKG,
     SoilTesting: () => <SoilTesting />,
     CropPlanning: () => <CropPlanning />,
   });

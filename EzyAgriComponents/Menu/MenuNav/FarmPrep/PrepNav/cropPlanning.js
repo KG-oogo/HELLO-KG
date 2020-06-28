@@ -35,7 +35,7 @@ function CropPlanning(props) {
 
   //const [inputNamesetFieldName]
 
-  handlePress = () => setExpanded(!expanded);
+  const handlePress = () => setExpanded(!expanded);
 
   // Crop Plan Dialog
   const todayDate = new Date();

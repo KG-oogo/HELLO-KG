@@ -112,7 +112,7 @@ function MapKG(props) {
     props.addUpdateDataTransaction(nextIndex, ADD_UPDATE_FIELD, payload);
 
     //console.log(dicArrayConv(props.fields));
-    setFields(dicArrayConv(props.fields));
+
     setMapPoints([]);
     hideModal();
   };
@@ -254,7 +254,12 @@ function MapKG(props) {
               />
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={() => addToField(fields, fieldName, mapPoints)}>
+              <Button
+                onPress={() => {
+                  addToField(fields, fieldName, mapPoints);
+                  setFields(dicArrayConv(props.fields));
+                }}
+              >
                 Add Field
               </Button>
             </Dialog.Actions>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -47,6 +47,16 @@ function TopMenu(props) {
   const move = useSpring({
     rotate: 45,
   });
+  const [badgeCount, setBadgeCount] = useState(
+    dicArrayConv(props.orders).length
+  );
+
+  useEffect(() => {
+    setInterval(() => {
+      setBadgeCount(dicArrayConv(props.orders).length);
+    }, 1000);
+  }, []);
+
   return (
     <View style={styles.container}>
       <View style={styles.view}>
@@ -83,24 +93,25 @@ function TopMenu(props) {
             </Text>
           </TouchableRipple>
         )}
+        <View style={{ flexDirection: "row" }}>
+          <TouchableRipple onPress={() => console.log("pressed")}>
+            <React.Fragment>
+              <Icon size={30} name="shopping-cart" color="#556B2F" />
+              {dicArrayConv(props.orders).length === 0 ? (
+                <React.Fragment></React.Fragment>
+              ) : (
+                <Badge>{badgeCount}</Badge>
+              )}
+            </React.Fragment>
+          </TouchableRipple>
 
-        <TouchableRipple onPress={() => console.log("pressed")}>
-          <React.Fragment>
-            <Icon size={30} name="shopping-cart" color="#556B2F" />
-            {dicArrayConv(props.orders).length === 0 ? (
-              <React.Fragment></React.Fragment>
-            ) : (
-              <Badge>{dicArrayConv(props.orders).length}</Badge>
-            )}
-          </React.Fragment>
-        </TouchableRipple>
-
-        <TouchableRipple onPress={() => console.log("pressed")}>
-          <Icon size={30} name="person" color="#556B2F" />
-        </TouchableRipple>
-        <TouchableRipple onPress={() => console.log("pressed")}>
-          <Icon size={30} name="menu" color="#556B2F" />
-        </TouchableRipple>
+          <TouchableRipple onPress={() => console.log("pressed")}>
+            <Icon size={30} name="person" color="#556B2F" />
+          </TouchableRipple>
+          <TouchableRipple onPress={() => console.log("pressed")}>
+            <Icon size={30} name="menu" color="#556B2F" />
+          </TouchableRipple>
+        </View>
       </View>
     </View>
   );

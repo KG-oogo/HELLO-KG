@@ -72,6 +72,7 @@ import { infoMenu } from "../Defaults/information/inforMenu";
 import { soilTestingFieldInputs } from "../Defaults/FarmPrep/soilTestingFieldInputs";
 import { farmManagerItems } from "../Defaults/FarmManager/farmManagerItems";
 import { fields } from "../Defaults/FarmPrep/fields";
+import { dicArrayConv, arrDictionary } from "../dataConvertor";
 
 import { combineReducers } from "redux";
 
@@ -127,10 +128,17 @@ export const addUpdateReducer = (
 
     //Farm Manager
     farmManagerItems: farmManagerItems,
+
+    // User Login ID
+    user_id: {},
   },
   action
 ) => {
   switch (action.type) {
+    case LOG_IN_SUCCESS:
+      state.user_id = action.payload;
+      return state;
+
     case ADD_UPDATE_MENU_ITEMS:
       /*
      7: {
@@ -149,6 +157,10 @@ export const addUpdateReducer = (
         action.payload[Object.keys(action.payload)[0]];
       return state;
 
+    case DELETE_PRODUCTS:
+      delete state.products[action.payload];
+      return state;
+
     case ADD_UPDATE_MY_PRODUCE:
       state.myProduce[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];
@@ -158,10 +170,24 @@ export const addUpdateReducer = (
       state.orders[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];
       return state;
+
+    case DELETE_ORDERS:
+      //payload will return key
+      //console.log(state.orders);
+      delete state.orders[action.payload];
+      //state.orders
+      return state;
+
     case ADD_UPDATE_FAVOURITES:
       state.favourites[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];
       return state;
+
+    case DELETE_FAVOURITES:
+      //payload will return key
+      delete state.favourites[action.payload];
+      return state;
+
     case ADD_UPDATE_SPRAYING_REQUEST:
       state.spraying[Object.keys(action.payload)[0]] =
         action.payload[Object.keys(action.payload)[0]];
@@ -262,7 +288,7 @@ export const deleteReducer = (state = {}, action) => {
       return state;
 
     case DELETE_ORDERS:
-      delete state.orders[Object.keys(action.payload)[0]];
+      delete state.orders[action.payload];
 
       return state;
 
@@ -291,7 +317,7 @@ export const deleteReducer = (state = {}, action) => {
 
 const reducer = combineReducers({
   addUpdateReducer,
-  deleteReducer,
+  //deleteReducer,
 });
 
 export default reducer;

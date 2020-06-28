@@ -168,6 +168,10 @@ function SoilTesting(props) {
     ));
   };
 
+  useEffect(() => {
+    setFields(dicArrayConv(props.fields));
+  }, [setFields]);
+
   return (
     <React.Fragment>
       <View style={styles.container}>

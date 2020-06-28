@@ -26,8 +26,8 @@ export default function ShopSecondTab() {
 
   const renderScene = SceneMap({
     Home: ShopHome,
-    Orders: ShopMyOrders,
-    Favourites: ShopMyFavourites,
+    Orders: () => <ShopMyOrders />,
+    Favourites: () => <ShopMyFavourites />,
   });
 
   const renderTabBar = (props) => (

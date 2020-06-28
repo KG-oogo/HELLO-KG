@@ -12,43 +12,56 @@ import {
 } from "react-native-paper";
 
 import { connect } from "react-redux";
-import { mdiCart } from "@mdi/js";
+
 import { dicArrayConv } from "../../Redux/dataConvertor";
 import { addUpdateDataTransaction } from "../../Redux/types";
+import { ADD_UPDATE_ORDERS, ADD_UPDATE_FAVOURITES } from "../../Redux/types";
 
 import TopMenu from "../../TopMenu/topMenu";
 
 import styles from "../../styles";
 
-function AgriShopButton() {
-  return <Button>Press me</Button>;
-}
-
-/*
-icon={({ size, color }) => (
-          <Image
-            source={require('../assets/chameleon.jpg')}
-            style={{ width: size, height: size, tintColor: color }}
-          />
-        )}
-*/
-const finger = (action) => {
-  //console.log(action);
-  /*  action("ADD_UPDATE_MENU_ITEMS", {
-    10: {
-      key: 10,
-      name: "Input Shop",
-      icon: "shopping-cart",
-    },
-  }); */
-  //console.log("after");
-};
-
 function ShopHome(props) {
   const [products, setProducts] = useState(dicArrayConv(props.products));
+  const [orders, setOrders] = useState(dicArrayConv(props.orders));
+  const [favourites, setfavourites] = useState(dicArrayConv(props.favourites));
   const [searchQuery, setSearchQuery] = useState("");
   const onChangeSearch = () => {
     console.log("");
+  };
+
+  const addProduct = (products, key, type) => {
+    // get product
+    const product = products.filter((value, k, arr) => {
+      return value.key === key;
+    });
+
+    //get next index
+    let nextIndex = "";
+    let exists = 0;
+    // If variable nextIndex is empty
+    // If key doesnt exist
+    if (exists === 0) {
+      if (type === ADD_UPDATE_ORDERS) {
+        nextIndex = (orders.length + 1).toString();
+      }
+      if (type === ADD_UPDATE_FAVOURITES) {
+        nextIndex = (favourites.length + 1).toString();
+      }
+    }
+
+    // create payload
+
+    const payload = {
+      [nextIndex]: {
+        key: nextIndex,
+        products: product[0],
+      },
+    };
+
+    //dispatch payload
+    props.addUpdateDataTransaction(nextIndex, type, payload);
+    /*   */
   };
 
   return (
@@ -79,14 +92,20 @@ function ShopHome(props) {
                   <Button
                     icon="check"
                     mode="contained"
-                    onPress={() => console.log("Pressed")}
+                    onPress={() => {
+                      addProduct(products, item.key, ADD_UPDATE_ORDERS);
+                      setOrders(dicArrayConv(props.orders));
+                    }}
                   >
                     Order
                   </Button>
                   <Button
                     icon="star"
                     mode="contained"
-                    onPress={() => console.log("Pressed")}
+                    onPress={() => {
+                      addProduct(products, item.key, ADD_UPDATE_FAVOURITES);
+                      setfavourites(dicArrayConv(props.favourites));
+                    }}
                   ></Button>
                 </Card.Actions>
               </Card>
@@ -131,6 +150,8 @@ const stylesLocal = StyleSheet.create({
 
 const mapStateToProps = (state) => ({
   products: state.addUpdateReducer.products,
+  orders: state.addUpdateReducer.orders,
+  favourites: state.addUpdateReducer.favourites,
 });
 
-export default connect(mapStateToProps)(ShopHome);
+export default connect(mapStateToProps, { addUpdateDataTransaction })(ShopHome);

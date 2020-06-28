@@ -106,6 +106,8 @@ export const addUpdateDataTransaction = (nextIndex, actionType, payload) => {
 //      action - imported action creator "action"
 //      actionType - imported action type
 //      payload -  the data to be changed
-export const deleteDataTransaction = (action, actionType, payload) => {
-  action(actionType, payload);
+export const deleteDataTransaction = (actionType, payload) => {
+  return (dispatch) => {
+    dispatch({ type: actionType, payload: payload });
+  };
 };

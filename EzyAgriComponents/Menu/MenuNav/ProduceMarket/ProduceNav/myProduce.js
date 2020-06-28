@@ -24,13 +24,18 @@ import { dicArrayConv } from "../../../../Redux/dataConvertor";
 import TopMenu from "../../../../TopMenu/topMenu";
 
 import styles from "../../../../styles";
-import { action, addUpdateDataTransaction } from "../../../../Redux/types";
+import {
+  action,
+  addUpdateDataTransaction,
+  deleteDataTransaction,
+  DELETE_PRODUCTS,
+} from "../../../../Redux/types";
 import {
   ADD_UPDATE_PRODUCTS,
   ADD_UPDATE_MY_PRODUCE,
 } from "../../../../Redux/types";
 
-import { withNavigation } from "react-navigation";
+import { withNavigation, StackRouter } from "react-navigation";
 import * as ImagePicker from "expo-image-picker";
 import Constants from "expo-constants";
 import * as Permissions from "expo-permissions";
@@ -82,7 +87,25 @@ const menuItems = [
   },
 ];
 
-function MyProduce(props) {
+function MyProduce(props, { route, navigation }) {
+  // Filter product list by user_id
+  const productsFilterByUserId = (products) => {
+    console.log(products);
+    if (Object.keys(products).length === 0) {
+      return dicArrayConv(products);
+    } else {
+      dicArrayConv(products).filter((value) => {
+        //console.log(value);
+        if (value.user_id !== undefined) {
+          return value.user_id === props.user_id;
+        } else {
+          return dicArrayConv(products);
+        }
+      });
+    }
+  };
+
+  //productsFilterByUserId(props.products)
   const [myProduce, setMyProduce] = useState(dicArrayConv(props.myProduce));
   const [products, setProducts] = useState(dicArrayConv(props.products));
   const [searchQuery, setSearchQuery] = useState("");
@@ -100,13 +123,14 @@ function MyProduce(props) {
     company: "",
     category: "",
     picture: "",
+    user_id: props.user_id,
   });
 
   const [image, setImage] = useState(null);
 
   const [recordKey, setRecordKey] = useState("");
   const updateInformation = (products, newInformation) => {
-    console.log(newInformation);
+    //console.log(newInformation);
     let nextIndex = "";
     let exists = 0;
 
@@ -150,21 +174,30 @@ function MyProduce(props) {
     setFertilizerRecomendations("");
     setRecordKey("");
 */
-
     setProduct({
       name: "",
       description: "",
       company: "",
       category: "",
       picture: "",
+      user_id: props.user_id,
     });
+    setImage(null);
     hideDialog();
+  };
+
+  const deleteProduct = (key) => {
+    const payload = key;
+    //console.log(payload);
+
+    props.deleteDataTransaction(DELETE_PRODUCTS, payload);
+    /**/
   };
 
   return (
     <View style={stylesLocal.container}>
       <ScrollView contentContainerStyle={stylesLocal.view}>
-        {myProduce.length === 0 ? (
+        {products.length === 0 ? (
           <React.Fragment>
             <Text>You have no products entered</Text>
           </React.Fragment>
@@ -172,7 +205,7 @@ function MyProduce(props) {
           <FlatList
             style={{ width: "100%", height: "100%", padding: "5%" }}
             // numColumns={2}
-            data={myProduce}
+            data={products}
             renderItem={({ item }) => (
               <React.Fragment>
                 <Card style={stylesLocal.items} elevation={10}>
@@ -188,7 +221,10 @@ function MyProduce(props) {
                       icon="check"
                       mode="contained"
                       onPress={() => {
-                        console.log(item);
+                        {
+                          deleteProduct(item.key);
+                          setProducts(dicArrayConv(props.products));
+                        }
                       }}
                     >
                       Remove
@@ -234,7 +270,12 @@ function MyProduce(props) {
             )}
           </Dialog.Content>
           <Dialog.Actions>
-            <Button onPress={() => updateInformation(products, product)}>
+            <Button
+              onPress={() => {
+                updateInformation(products, product);
+                setProducts(dicArrayConv(props.products));
+              }}
+            >
               Add
             </Button>
           </Dialog.Actions>
@@ -330,11 +371,13 @@ const stylesLocal = StyleSheet.create({
 const mapStateToProps = (state) => ({
   myProduce: state.addUpdateReducer.myProduce,
   products: state.addUpdateReducer.products,
+  user_id: state.addUpdateReducer.user_id,
 });
 
-export default connect(mapStateToProps, { addUpdateDataTransaction })(
-  withNavigation(MyProduce)
-);
+export default connect(mapStateToProps, {
+  addUpdateDataTransaction,
+  deleteDataTransaction,
+})(withNavigation(MyProduce));
 
 {
   /*

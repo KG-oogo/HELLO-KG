@@ -1,13 +1,18 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
-import { Button, TouchableRipple } from "react-native-paper";
+import {
+  Button,
+  TouchableRipple,
+  Card,
+  Title,
+  Paragraph,
+} from "react-native-paper";
 import { connect } from "react-redux";
 
 import { dicArrayConv } from "../../Redux/dataConvertor";
-import { deleteDataTransaction } from "../../Redux/types";
+import { deleteDataTransaction, DELETE_ORDERS } from "../../Redux/types";
 import { mdiCart } from "@mdi/js";
 
-import { Title } from "react-native-paper";
 import TopMenu from "../../TopMenu/topMenu";
 
 function AgriShopButton() {
@@ -35,31 +40,40 @@ const finger = (action) => {
 };
 
 function ShopMyOrders(props) {
-  const [products, setProducts] = useState(dicArrayConv(props.products));
+  const [orders, setOrders] = useState(dicArrayConv(props.orders));
+  const deleteProduct = (key) => {
+    const payload = key;
+    //console.log(payload);
 
+    props.deleteDataTransaction(DELETE_ORDERS, payload);
+    /**/
+  };
   return (
     <View style={stylesLocal.container}>
       <View style={stylesLocal.view}>
-        {products.length === 0 ? (
+        {orders.length === 0 ? (
           <Text>You have no products selected</Text>
         ) : (
           <FlatList
             style={{ width: "100%", height: "100%", padding: "5%" }}
             // numColumns={2}
-            data={products}
+            data={orders}
             renderItem={({ item }) => (
               <Card style={stylesLocal.items} elevation={10}>
                 <Card.Content>
-                  <Title>{item.name}</Title>
-                  <Paragraph>{item.description}</Paragraph>
+                  <Title>{item.products.products.name}</Title>
+                  <Paragraph>{item.products.products.description}</Paragraph>
                 </Card.Content>
                 {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
-                <Card.Cover source={item.picture} />
+                <Card.Cover source={{ uri: item.products.products.picture }} />
                 <Card.Actions style={{ justifyContent: "space-between" }}>
                   <Button
                     icon="check"
                     mode="contained"
-                    onPress={() => console.log("Pressed")}
+                    onPress={() => {
+                      deleteProduct(item.key);
+                      setOrders(dicArrayConv(props.orders));
+                    }}
                   >
                     Remove
                   </Button>
@@ -75,20 +89,20 @@ function ShopMyOrders(props) {
 
 const stylesLocal = StyleSheet.create({
   container: {
-    justifyContent: "center",
-    alignItems: "center",
-    flex: 1,
+    //justifyContent: "center",
+    //alignItems: "center",
+    //flex: 1,
   },
   view: {
-    justifyContent: "center",
-    alignItems: "center",
+    //justifyContent: "center",
+    //alignItems: "center",
     //flexDirection: "row",
 
     flexWrap: "wrap",
+    height: "100%",
   },
   items: {
-    margin: "5%",
-
+    //margin: "5%",
     ///justifyContent: "center",
     //alignItems: "center",
   },
@@ -99,4 +113,6 @@ const mapStateToProps = (state) => ({
   orders: state.addUpdateReducer.orders,
 });
 
-export default connect(mapStateToProps)(ShopMyOrders);
+export default connect(mapStateToProps, { deleteDataTransaction })(
+  ShopMyOrders
+);

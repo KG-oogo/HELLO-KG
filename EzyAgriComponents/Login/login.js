@@ -4,9 +4,12 @@ import { Button } from "react-native-paper";
 import { StyleSheet, Text, View } from "react-native";
 import { Title } from "react-native-paper";
 
+import { connect } from "react-redux";
+import { addUpdateDataTransaction, LOG_IN_SUCCESS } from "../Redux/types";
+
 //import * as React from "react";
 
-export default function Login(props) {
+function Login(props) {
   const [outputText, setOutputText] = useState(0);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -15,6 +18,17 @@ export default function Login(props) {
     username: "",
     password: "",
   });
+
+  // After Amplify returns success
+  // Get user id from somewhere (likely Amplify)
+  const somewhere = () => {
+    return 1;
+  };
+  const setUserId = () => {
+    const payload = somewhere();
+    console.log(payload);
+    props.addUpdateDataTransaction("", LOG_IN_SUCCESS, payload);
+  };
 
   return (
     <View style={styles.form}>
@@ -41,7 +55,10 @@ export default function Login(props) {
       <View style={{}}>
         <Button
           mode="contained"
-          onPress={() => props.navigation.navigate("Application")}
+          onPress={() => {
+            props.navigation.navigate("Application");
+            setUserId();
+          }}
         >
           Login
         </Button>
@@ -63,3 +80,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+const mapStateToProps = (state) => ({
+  user_id: state.addUpdateReducer.user_id,
+});
+
+export default connect(mapStateToProps, { addUpdateDataTransaction })(Login);
