@@ -83,9 +83,18 @@ const menuItems = [
   },
   {
     key: "5",
+    item: "amount",
+  },
+
+  {
+    key: "6",
     item: "picture",
   },
 ];
+/*
+
+
+*/
 
 function MyProduce(props, { route, navigation }) {
   // Filter product list by user_id
@@ -284,6 +293,18 @@ function MyProduce(props, { route, navigation }) {
     </View>
   );
 }
+
+/*
+<TextInput
+                  label={"Estimated Cost"}
+                  placeholder={"ENTER COST"}
+                  value={irrigationInfo.cost}
+                  onChangeText={(e) =>
+                    setIrrigationInfo({ ...irrigationInfo, cost: e })
+                  }
+                  keyboardType={"number-pad"}
+                />
+*/
 
 const ProductImage = (props) => {
   //const [image, setImage] = useState(null);

@@ -120,22 +120,17 @@ function SoilTesting(props) {
   const onFieldSelect = (fieldKey) => {
     // soli_testing must be saved as [{"soilType":"Dust"}]
     setRecordKey(fieldKey);
-    props.fields[fieldKey]["soil_testing"] !== undefined
-      ? props.fields[fieldKey]["soil_testing"].map((value, index, arr) => {
-          if (value["soilType"]) {
-            setSoilType(value["soilType"]);
-          }
-          if (value["soilCategory"]) {
-            setSoilCategory(value["soilCategory"]);
-          }
-          if (value["cropRecomendations"]) {
-            setCropRecomendations(value["cropRecomendations"]);
-          }
-          if (value["fertilizerRecomendations"]) {
-            setFertilizerRecomendations(value["fertilizerRecomendations"]);
-          }
-        })
-      : console.log("Nothing");
+    console.log(props.fields[fieldKey]);
+    if (props.fields[fieldKey]["soil_testing"] !== undefined) {
+      setSoilTestObject({
+        soil_type: props.fields[fieldKey]["soil_testing"]["soil_type"],
+        soil_category: props.fields[fieldKey]["soil_testing"]["soil_category"],
+        crop_recomendations:
+          props.fields[fieldKey]["soil_testing"]["crop_recomendations"],
+        fertilizer_recomendations:
+          props.fields[fieldKey]["soil_testing"]["fertilizer_recomendations"],
+      });
+    }
 
     //console.log(soilType);
     showDialog();
@@ -168,10 +163,10 @@ function SoilTesting(props) {
     ));
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     setFields(dicArrayConv(props.fields));
-  }, [setFields]);
-
+  }, [setFields]); */
+  //
   return (
     <React.Fragment>
       <View style={styles.container}>
@@ -189,10 +184,10 @@ function SoilTesting(props) {
                     value["key"] //Object.keys(value).filter((v, i, a) => v === "key")[0]
                   )
                 }
-                key={value}
+                key={value["key"]}
               >
                 <Text style={{ textAlign: "center", fontSize: 35 }}>
-                  {value["field_name"]}
+                  {value["field_name"]["name"]}
                 </Text>
               </TouchableRipple>
             );

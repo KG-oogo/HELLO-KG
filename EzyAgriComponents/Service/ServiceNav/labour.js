@@ -40,7 +40,7 @@ const finger = (action) => {
   //console.log("after");
 };
 
-function ServiceSoilTesting(props) {
+function ServiceLabour(props) {
   const [soilTesting, setsoilTesting] = useState(
     dicArrayConv(props.soilTesting)
   );
@@ -48,7 +48,7 @@ function ServiceSoilTesting(props) {
     <View style={styles.container}>
       <View style={stylesLocal.view}>
         {soilTesting.length === 0 ? (
-          <Text>There are no soil sample qoutes</Text>
+          <Text>There is no labour on the market</Text>
         ) : (
           <React.Fragment>
             <FlatGrid
@@ -174,4 +174,4 @@ const mapStateToProps = (state) => ({
   soilTesting: state.addUpdateReducer.soilTesting,
 });
 
-export default connect(mapStateToProps)(ServiceSoilTesting);
+export default connect(mapStateToProps)(ServiceLabour);

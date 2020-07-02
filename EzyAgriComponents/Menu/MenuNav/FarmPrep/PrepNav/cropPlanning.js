@@ -27,6 +27,114 @@ import styles from "../../../../styles";
 import { action, addUpdateDataTransaction } from "../../../../Redux/types";
 import { ADD_UPDATE_CROP_PLAN } from "../../../../Redux/types";
 
+import MultipleDatePicker from "react-multiple-datepicker";
+import { Calendar, CalendarList, Agenda } from "react-native-calendars";
+
+//Planting and Estimated Harvest Date Calender
+const Cal = (props) => {
+  return (
+    <Calendar
+      // Enable horizontal scrolling, default = false
+      horizontal={true}
+      // Enable paging on horizontal, default = false
+      pagingEnabled={true}
+      // Set custom calendarWidth.
+      calendarWidth={320}
+      pastScrollRange={0}
+      futureScrollRange={12}
+      markedDates={{
+        [props.cropPlan[props.date]]: { selected: true },
+      }}
+      onDayPress={(day) => {
+        props.setCropPlan({ ...props.cropPlan, [props.date]: day.dateString });
+        //console.log("selected day", day);
+      }}
+    />
+  );
+};
+
+//Frequency Calendar List
+const CalList = (props) => {
+  useEffect(() => {
+    //console.log(props.irrigationInfo.frequency);
+    /* props.setIrrigationInfo({
+      ...props.irrigationInfo,
+      frequency: {
+        ...props.irrigationInfo.frequency,
+        [props.irrigationKey]: props.calenderList,
+      },
+    }); */
+  }, [props.calenderList]);
+
+  const createMarkedDates = (day, object, objectUpdater) => {
+    /*
+      
+      {
+        "2020-06-16": { selected: true },
+      }
+    */
+
+    objectUpdater({
+      ...object,
+      [day.dateString]: { selected: true },
+    });
+
+    /*const [frequencyNow, setFrequencyNow] = useState(
+      props.irrigationInfo.frequency
+    );
+     setFrequencyNow({
+      ...frequencyNow,
+      [props.irrigationKey]: irrigationDates,
+    }); */
+
+    const object2 = props.calenderList;
+
+    /* props.setIrrigationInfo({
+      ...props.irrigationInfo,
+      frequency: {
+        ...props.irrigationInfo.frequency,
+        [props.irrigationKey]: object2,
+      },
+    }); */
+
+    //console.log(object2);
+    /* props.setIrrigationInfo({
+      ...props.irrigationInfo,
+      frequency: [props.irrigationKey], //: irrigationDates,
+    }); */
+  };
+
+  return (
+    <Calendar
+      // Enable horizontal scrolling, default = false
+      horizontal={true}
+      // Enable paging on horizontal, default = false
+      pagingEnabled={true}
+      // Set custom calendarWidth.
+      calendarWidth={320}
+      pastScrollRange={0}
+      futureScrollRange={12}
+      markedDates={props.calenderList}
+      onDayPress={(day) => {
+        /*
+        props.calenderListChanger({
+          ...props.calenderList,
+          [day.dateString]: { selected: true },
+        });
+        console.log(props.calenderList);
+         props.setIrrigationInfo({
+          ...props.irrigationInfo,
+          frequency: {
+            ...props.irrigationInfo.frequency,
+            [props.irrigationKey]: props.calenderList,
+          },
+        }); */
+        createMarkedDates(day, props.calenderList, props.calenderListChanger);
+      }}
+    />
+  );
+};
+
 function CropPlanning(props) {
   const [fields, setFields] = useState(dicArrayConv(props.fields));
   //const soilTestingFieldInputs = dicArrayConv(props.soilTestingFieldInputs);
@@ -35,7 +143,15 @@ function CropPlanning(props) {
 
   //const [inputNamesetFieldName]
 
-  const handlePress = () => setExpanded(!expanded);
+  const handlePress = () => {
+    setExpanded(!expanded);
+  };
+
+  // Frequency List
+  const [expandedFrequency, setExpandedFrequency] = useState(false);
+  const handleFrequencyPress = () => {
+    setExpandedFrequency(!expandedFrequency);
+  };
 
   // Crop Plan Dialog
   const todayDate = new Date();
@@ -56,69 +172,62 @@ function CropPlanning(props) {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
-  // Irrlgation
+  // Irrigation
   const [irrigationInfo, setIrrigationInfo] = useState({
     area: "",
     duration: "",
     water_quantity: "",
     qty_ha: "",
 
-    recurrence: "",
+    frequency: {},
     cost: "",
   });
   const [visibleIrrigationInfo, setVisibleIrrigationInfo] = useState(false);
   const showIrrigationInfoDialog = () => setVisibleIrrigationInfo(true);
   const hideIrrigationInfoDialog = () => setVisibleIrrigationInfo(false);
 
-  //{/* <List.Item title={v} />; */}
-  /* switch (v) {
-    case v["soil_type"] !== undefined:
-      return <Text>Soil Type :{v["soil_type"]} </Text>;
+  const [visibleCalender, setVisibleCalender] = useState(false);
+  const showCalenderDialog = () => setVisibleCalender(true);
+  const hideCalenderDialog = () => setVisibleCalender(false);
 
-    case v["soil_category"] !== undefined:
-      return <Text>Soil Category :{v["soil_type"]} </Text>;
+  //Planting and Estimated Harvest Date Calender
+  const [visiblePlantingCalender, setVisiblePlantingCalender] = useState(false);
+  const showPlantingCalenderDialog = () => setVisiblePlantingCalender(true);
+  const hidePlantingCalenderDialog = () => setVisiblePlantingCalender(false);
+  const [visibleEstimatedCalender, setVisibleEstimatedCalender] = useState(
+    false
+  );
+  const showEstimatedCalenderDialog = () => setVisibleEstimatedCalender(true);
+  const hideEstimatedCalenderDialog = () => setVisibleEstimatedCalender(false);
 
-    case v["crop_recomendations"] !== undefined:
-      return (
-        <Text>Crop Recomendations :{v["soil_type"]} </Text>
-      );
+  //Frequency Calendar List
+  //Objects
+  const [plantingCalenderList, setPlantingCalenderList] = useState({});
+  const [growthCalenderList, setGrowthCalenderList] = useState({});
+  const [harvestCalenderList, setHarvestCalenderList] = useState({});
+  const [
+    visiblePlantingCalenderList,
+    setVisiblePlantingCalenderList,
+  ] = useState(false);
+  const showPlantingCalenderListDialog = () =>
+    setVisiblePlantingCalenderList(true);
+  const hidePlantingCalenderListDialog = () =>
+    setVisiblePlantingCalenderList(false);
 
-    case v["fertilizer_recomendations"] !== undefined:
-      return (
-        <Text>
-          Fertilizer Recomendations :{v["soil_type"]}
-        </Text>
-      );
+  const [visibleGrowthCalenderList, setVisibleGrowthCalenderList] = useState(
+    false
+  );
+  const showGrowthCalenderListDialog = () => setVisibleGrowthCalenderList(true);
+  const hideGrowthCalenderListDialog = () =>
+    setVisibleGrowthCalenderList(false);
 
-    default:
-      console.log(v);
-      return <Text>No soil testing data entered</Text>;
-  } */
-
-  /*
-    OLD Crop Pllan List
-    if (v["soil_type"]) {
-                        return <Text>Soil Type :{v["soil_type"]} </Text>;
-                      } else if (v["soil_category"]) {
-                        return (
-                          <Text>Soil Category :{v["soil_category"]} </Text>
-                        );
-                      } else if (v["crop_recomendations"]) {
-                        return (
-                          <Text>
-                            Crop Recomendations :{v["crop_recomendations"]}
-                          </Text>
-                        );
-                      } else if (v["fertilizer_recomendations"]) {
-                        return (
-                          <Text>
-                            Fertilizer Recomendations :
-                            {v["fertilizer_recomendations"]}
-                          </Text>
-                        );
-                      }
-
-  */
+  const [visibleHarvestCalenderList, setVisibleHarvestCalenderList] = useState(
+    false
+  );
+  const showHarvestCalenderListDialog = () =>
+    setVisibleHarvestCalenderList(true);
+  const hideHarvestCalenderListDialog = () =>
+    setVisibleHarvestCalenderList(false);
 
   // Redux commit
   const [recordKey, setRecordKey] = useState("");
@@ -148,7 +257,7 @@ function CropPlanning(props) {
       water_quantity: "",
       qty_ha: "",
 
-      recurrence: "",
+      frequency: {},
       cost: "",
     });
 
@@ -163,14 +272,17 @@ function CropPlanning(props) {
   return (
     <React.Fragment>
       <View style={styles.container}>
-        <ScrollView style={stylesLocal.listItem}>
+        <ScrollView contentContainerStyle={stylesLocal.listItem}>
           <List.Section title="Fields">
             {fields.map((value, index, arr) => {
               return (
                 <List.Accordion
-                  title={value.field_name}
-                  left={(props) => <List.Icon {...props} icon="folder" />}
-                  expanded={expanded}
+                  title={value.field_name.name}
+                  left={(props) => <List.Icon {...props} />}
+                  expanded={(e) => {
+                    console.log(e);
+                    return expanded;
+                  }}
                   onPress={handlePress}
                 >
                   {value.soil_testing !== undefined ? (
@@ -218,75 +330,33 @@ function CropPlanning(props) {
           <Dialog visible={visible} onDismiss={hideDialog}>
             <Dialog.Title>Enter Crop Plan please</Dialog.Title>
             <Dialog.Content>
-              {/* <TextInput
-                placeholder={"Enter Field Name"}
-                onChangeText={(e) => setFieldName(e)}
-                style={{ width: "80%" }}
-              /> */}
-              {/* {soilTestingFieldInputs.map((value, index, arr) => (
-                <React.Fragment key={value.key}>
-                  <List.Item title={value.input_name}></List.Item>
-                  <TextInput
-                    placeholder={"ENTER " + value.input_name}
-                    //onChangeText={(e) => eval("(" + value.set + ")")}
-                  />
-                </React.Fragment>
-              ))} */}
-              <Text>Planting Date:</Text>
-              <DatePicker
-                style={{ width: 200 }}
-                date={cropPlan.planting_date}
-                mode="date"
-                placeholder="select date"
-                format="YYYY-MM-DD"
-                minDate={cropPlan.planting_date}
-                maxDate="3000-01-01"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    position: "absolute",
-                    left: 0,
-                    top: 4,
-                    marginLeft: 0,
-                  },
-                  dateInput: {
-                    marginLeft: 36,
-                  },
-                  // ... You can check the source to find the other keys.
-                }}
-                onDateChange={(date) =>
-                  setCropPlan({ ...cropPlan, planting_date: date })
-                }
-              />
+              <React.Fragment>
+                <Button
+                  mode="outlined"
+                  onPress={() => showPlantingCalenderDialog()}
+                  icon="calendar"
+                >
+                  Enter Planting Date:
+                </Button>
 
-              <Text>Estimated Harvest Date:</Text>
-              <DatePicker
-                style={{ width: 200 }}
-                date={cropPlan.estimate_harvest_date}
-                mode="date"
-                placeholder="select date"
-                format="YYYY-MM-DD"
-                minDate={cropPlan.planting_date}
-                maxDate="3000-01-01"
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
-                customStyles={{
-                  dateIcon: {
-                    position: "absolute",
-                    left: 0,
-                    top: 4,
-                    marginLeft: 0,
-                  },
-                  dateInput: {
-                    marginLeft: 36,
-                  },
-                  // ... You can check the source to find the other keys.
-                }}
-                onDateChange={(date) =>
-                  setCropPlan({ ...cropPlan, estimate_harvest_date: date })
-                }
-              />
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  {cropPlan.planting_date}
+                </Text>
+              </React.Fragment>
+
+              <React.Fragment>
+                <Button
+                  mode="outlined"
+                  onPress={() => showEstimatedCalenderDialog()}
+                  icon="calendar"
+                >
+                  Estimated Harvest Date:
+                </Button>
+
+                <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+                  {cropPlan.estimate_harvest_date}
+                </Text>
+              </React.Fragment>
 
               <TextInput
                 label={"Seed Variety"}
@@ -328,15 +398,6 @@ function CropPlanning(props) {
               <Dialog.Title>Enter Irrigation Infor please</Dialog.Title>
               <Dialog.Content>
                 <TextInput
-                  label={"Area"}
-                  placeholder={"ENTER AREA"}
-                  value={irrigationInfo.area}
-                  onChangeText={(e) =>
-                    setIrrigationInfo({ ...irrigationInfo, area: e })
-                  }
-                />
-
-                <TextInput
                   label={"Duration"}
                   placeholder={"ENTER DURATION"}
                   value={irrigationInfo.duration}
@@ -360,22 +421,46 @@ function CropPlanning(props) {
                     setIrrigationInfo({ ...irrigationInfo, qty_ha: e })
                   }
                 />
+
                 <TextInput
-                  label={"Recurrence"}
-                  placeholder={"ENTER RECURRENCE"}
-                  value={irrigationInfo.recurrence}
-                  onChangeText={(e) =>
-                    setIrrigationInfo({ ...irrigationInfo, recurrence: e })
-                  }
-                />
-                <TextInput
-                  label={"Cost"}
+                  label={"Estimated Cost"}
                   placeholder={"ENTER COST"}
                   value={irrigationInfo.cost}
                   onChangeText={(e) =>
                     setIrrigationInfo({ ...irrigationInfo, cost: e })
                   }
+                  keyboardType={"number-pad"}
                 />
+
+                <List.Accordion
+                  title="Frequency"
+                  left={(props) => <List.Icon {...props} />}
+                  expanded={expandedFrequency}
+                  onPress={handleFrequencyPress}
+                  style={{ width: "100%", alignItems: "center" }}
+                >
+                  <Button
+                    mode="outlined"
+                    onPress={() => showPlantingCalenderListDialog()}
+                    icon="calendar"
+                  >
+                    Planting
+                  </Button>
+                  <Button
+                    mode="outlined"
+                    onPress={() => showGrowthCalenderListDialog()}
+                    icon="calendar"
+                  >
+                    Growth
+                  </Button>
+                  <Button
+                    mode="outlined"
+                    onPress={() => showHarvestCalenderListDialog()}
+                    icon="calendar"
+                  >
+                    Harvest
+                  </Button>
+                </List.Accordion>
               </Dialog.Content>
               <Dialog.Actions>
                 <Button onPress={() => hideIrrigationInfoDialog()}>
@@ -383,7 +468,147 @@ function CropPlanning(props) {
                 </Button>
               </Dialog.Actions>
             </Dialog>
+
+            <Dialog
+              visible={visiblePlantingCalenderList}
+              onDismiss={hidePlantingCalenderListDialog}
+            >
+              <Dialog.Title>
+                Enter Irrigation Dates During Planting please
+              </Dialog.Title>
+              <Dialog.Content>
+                <CalList
+                  calenderList={plantingCalenderList}
+                  calenderListChanger={setPlantingCalenderList}
+                  irrigationKey={"planting"}
+                  irrigationInfo={irrigationInfo}
+                  setIrrigationInfo={setIrrigationInfo}
+                />
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  onPress={() => {
+                    hidePlantingCalenderListDialog();
+                    setIrrigationInfo({
+                      ...irrigationInfo,
+                      frequency: {
+                        ...irrigationInfo.frequency,
+                        planting: plantingCalenderList,
+                      },
+                    });
+                  }}
+                >
+                  Close
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+
+            <Dialog
+              visible={visibleGrowthCalenderList}
+              onDismiss={hideGrowthCalenderListDialog}
+            >
+              <Dialog.Title>
+                Enter Irrigation Dates During Growth Please
+              </Dialog.Title>
+              <Dialog.Content>
+                <CalList
+                  calenderList={growthCalenderList}
+                  calenderListChanger={setGrowthCalenderList}
+                  irrigationKey={"growth"}
+                  irrigationInfo={irrigationInfo}
+                  setIrrigationInfo={setIrrigationInfo}
+                />
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  onPress={() => {
+                    hideGrowthCalenderListDialog();
+                    setIrrigationInfo({
+                      ...irrigationInfo,
+                      frequency: {
+                        ...irrigationInfo.frequency,
+                        growth: growthCalenderList,
+                      },
+                    });
+                  }}
+                >
+                  Close
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
+
+            <Dialog
+              visible={visibleHarvestCalenderList}
+              onDismiss={hideHarvestCalenderListDialog}
+            >
+              <Dialog.Title>
+                Enter Irrigation Dates During Harvest Please
+              </Dialog.Title>
+              <Dialog.Content>
+                <CalList
+                  calenderList={harvestCalenderList}
+                  calenderListChanger={setHarvestCalenderList}
+                  irrigationKey={"harvest"}
+                  irrigationInfo={irrigationInfo}
+                  setIrrigationInfo={setIrrigationInfo}
+                />
+              </Dialog.Content>
+              <Dialog.Actions>
+                <Button
+                  onPress={() => {
+                    hideHarvestCalenderListDialog();
+                    setIrrigationInfo({
+                      ...irrigationInfo,
+                      frequency: {
+                        ...irrigationInfo.frequency,
+                        harvest: harvestCalenderList,
+                      },
+                    });
+                  }}
+                >
+                  Close
+                </Button>
+              </Dialog.Actions>
+            </Dialog>
           </Portal>
+
+          <Dialog
+            visible={visiblePlantingCalender}
+            onDismiss={hidePlantingCalenderDialog}
+          >
+            <Dialog.Title>Enter Planting Date please</Dialog.Title>
+            <Dialog.Content>
+              <Cal
+                cropPlan={cropPlan}
+                setCropPlan={setCropPlan}
+                date={"planting_date"}
+              />
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => hidePlantingCalenderDialog()}>
+                Close
+              </Button>
+            </Dialog.Actions>
+          </Dialog>
+
+          <Dialog
+            visible={visibleEstimatedCalender}
+            onDismiss={hideEstimatedCalenderDialog}
+          >
+            <Dialog.Title>Enter Estimated Harvest Date please</Dialog.Title>
+            <Dialog.Content>
+              <Cal
+                cropPlan={cropPlan}
+                setCropPlan={setCropPlan}
+                date={"estimate_harvest_date"}
+              />
+            </Dialog.Content>
+            <Dialog.Actions>
+              <Button onPress={() => hideEstimatedCalenderDialog()}>
+                Close
+              </Button>
+            </Dialog.Actions>
+          </Dialog>
         </Portal>
       </View>
     </React.Fragment>
@@ -393,7 +618,9 @@ function CropPlanning(props) {
 //var date = new Date().getDate(); //Current Date
 const stylesLocal = StyleSheet.create({
   listItem: {
-    width: "80%",
+    width: "90%",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 
@@ -405,43 +632,3 @@ const mapStateToProps = (state) => ({
 export default connect(mapStateToProps, { addUpdateDataTransaction })(
   CropPlanning
 );
-
-/*
-
-<React.Fragment>
-                      (
-                      {value.soil_testing.map((v, i, a) => {
-                        //console.log(v.entries());
-                        //return <Text>{v} </Text>;
-                        if (v["soil_type"]) {
-                          return <Text>Soil Type :{v["soil_type"]} </Text>;
-                        } else if (v["soil_category"]) {
-                          return (
-                            <Text>Soil Category :{v["soil_category"]} </Text>
-                          );
-                        } else if (v["crop_recomendations"]) {
-                          return (
-                            <Text>
-                              Crop Recomendations :{v["crop_recomendations"]}
-                            </Text>
-                          );
-                        } else if (v["fertilizer_recomendations"]) {
-                          return (
-                            <Text>
-                              Fertilizer Recomendations :
-                              {v["fertilizer_recomendations"]}
-                            </Text>
-                          );
-                        }
-                      })}
-                      <Button
-                        mode="contained"
-                        onPress={() => showDialog()}
-                        style={{ margin: "1%" }}
-                      >
-                        Add Field
-                      </Button>
-                      )
-                    </React.Fragment>
-
-*/

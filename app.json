@@ -3,7 +3,7 @@
     "name": "Agri-Web Solutions",
     "slug": "hello-KG",
     "platforms": ["ios", "android", "web"],
-    "version": "0.0.9",
+    "version": "0.0.10",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -17,7 +17,7 @@
     "assetBundlePatterns": ["**/*"],
     "android": {
       "package": "com.agriweb",
-      "versionCode": 6,
+      "versionCode": 0,
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyAKU3Sm-DLVPp49H-M0RTz2f1SIY-N7Ukc"

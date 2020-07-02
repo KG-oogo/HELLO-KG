@@ -34,7 +34,10 @@ function MapKG(props) {
   };
   const hideDialog = () => setVisible(false);
 
-  const [fieldName, setFieldName] = useState("");
+  const [fieldName, setFieldName] = useState({
+    name: "",
+    hectre: "",
+  });
   const [fields, setFields] = useState(dicArrayConv(props.fields));
 
   const addMarker = async (coord) => {
@@ -65,6 +68,15 @@ function MapKG(props) {
     setMapPoints([]);
   };
 
+  const undoPoint = () => {
+    const newMapPoints = mapPoints.filter((value, index) => {
+      if (index !== mapPoints.length - 1) {
+        return value;
+      }
+    });
+    setMapPoints(newMapPoints);
+  };
+
   /*
   General Action Creator Helper
   -----------------------------
@@ -83,12 +95,22 @@ function MapKG(props) {
   const addToField = (fields, newFieldName, newFieldLonLat) => {
     let nextIndex = "";
     let exists = 0;
+    console.log(fields);
 
     // If key exists
     for (let i = 0; i < fields.length; i++) {
+      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      console.log(
+        fields[i]["field_name"]["name"] === newFieldName["name"].trim()
+      );
+      console.log(fields[i]["field_name"]["name"].length);
+      console.log(newFieldName["name"].trim().length);
+      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+
       if (
-        Object.keys(fields[i]).filter((e) => e !== "key")[0] ===
-        newFieldName.trim()
+        /* Object.keys(fields[i]["field_name"]["name"]).filter((e) => e !== "key")[0] ===
+        newFieldName["name"].trim() */
+        fields[i]["field_name"]["name"].trim() === newFieldName["name"].trim()
       ) {
         nextIndex = fields[i]["key"];
         exists = 1;
@@ -105,10 +127,11 @@ function MapKG(props) {
     const payload = {
       [nextIndex]: {
         key: nextIndex,
-        field_name: newFieldName.trim(),
+        field_name: newFieldName,
         polygon: newFieldLonLat,
       },
     };
+    console.log(payload);
     props.addUpdateDataTransaction(nextIndex, ADD_UPDATE_FIELD, payload);
 
     //console.log(dicArrayConv(props.fields));
@@ -223,6 +246,16 @@ function MapKG(props) {
           >
             Clear Selection
           </Button>
+          <Button
+            mode="contained"
+            onPress={() => {
+              undoPoint();
+              setFields(dicArrayConv(props.fields));
+            }}
+            style={{ margin: "1%" }}
+          >
+            Undo
+          </Button>
         </View>
 
         {/* <Modal
@@ -249,8 +282,14 @@ function MapKG(props) {
             <Dialog.Content>
               <TextInput
                 placeholder={"Enter Field Name"}
-                onChangeText={(e) => setFieldName(e)}
+                onChangeText={(e) => setFieldName({ ...fieldName, name: e })}
                 style={{ width: "80%" }}
+              />
+              <TextInput
+                placeholder={"Enter Field Hectures"}
+                onChangeText={(e) => setFieldName({ ...fieldName, hectre: e })}
+                style={{ width: "80%" }}
+                keyboardType={"number-pad"}
               />
             </Dialog.Content>
             <Dialog.Actions>
@@ -283,6 +322,7 @@ const stylesLocal = StyleSheet.create({
   },
   buttons: {
     justifyContent: "space-evenly",
+    //flexDirection: "row",
   },
   modal: {
     flex: 1,

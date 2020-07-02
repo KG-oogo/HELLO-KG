@@ -8,7 +8,7 @@ import ShopMyOrders from "../Shop/ShopNav/myOrders";
 import ShopMyFavourites from "../Shop/ShopNav/myFavourites";
 
 import ServiceSpraying from "./ServiceNav/spraying";
-import ServiceSoiltesting from "./ServiceNav/soilTesting";
+import ServiceLabour from "./ServiceNav/labour";
 import ServiceTractor from "./ServiceNav/tractors";
 
 import { Button } from "react-native-paper";
@@ -33,14 +33,14 @@ export default function ServiceThirdTab() {
   const [index, setIndex] = useState(0);
   const [routes] = React.useState([
     { key: "Spraying", title: "Spraying" },
-    { key: "SoilTesting", title: "Soil Testing" },
+    { key: "ServiceLabour", title: "Labour" },
     { key: "Tractor", title: "Tractor" },
   ]);
 
   const renderScene = SceneMap({
-    Spraying: ServiceSpraying,
-    SoilTesting: ServiceSoiltesting,
-    Tractor: ServiceTractor,
+    Spraying: () => <ServiceSpraying />,
+    ServiceLabour: () => <ServiceLabour />,
+    Tractor: () => <ServiceTractor />,
   });
 
   const renderTabBar = (props) => (
