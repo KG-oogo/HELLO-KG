@@ -11,7 +11,7 @@ export const farmManagerItems = {
     name: "Daily Activities",
     //icon: "build",
     icon: "dashboard",
-    redirect: "Application",
+    redirect: "FarmManagerDailyActivities",
   },
 
   "3": {
@@ -36,6 +36,6 @@ export const farmManagerItems = {
     //icon: "person",
     //icon: "bubble-chart",
     icon: "local-convenience-store",
-    redirect: "Application",
+    redirect: "FarmManagerInventory",
   },
 };

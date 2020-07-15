@@ -53,6 +53,10 @@ import {
 
   //Market
   ADD_UPDATE_MY_PRODUCE,
+
+  // Farm manager
+  ADD_UPDATE_MY_INVENTORY,
+  DELETE_INVENTORY,
 } from "../types";
 
 import { menuItems } from "../Defaults/menu/menuItems";
@@ -128,6 +132,7 @@ export const addUpdateReducer = (
 
     //Farm Manager
     farmManagerItems: farmManagerItems,
+    inventory: {},
 
     // User Login ID
     user_id: {},
@@ -261,6 +266,15 @@ export const addUpdateReducer = (
       // add new fields to state
       return { ...state, ["fields"]: fieldsWithCropPlan };
     /////////////////
+
+    case ADD_UPDATE_MY_INVENTORY:
+      state.inventory[Object.keys(action.payload)[0]] =
+        action.payload[Object.keys(action.payload)[0]];
+      return state;
+
+    case DELETE_INVENTORY:
+      delete state.inventory[action.payload];
+      return state;
 
     default:
       return state;

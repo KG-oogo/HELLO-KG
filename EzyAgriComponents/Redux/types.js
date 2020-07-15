@@ -60,6 +60,10 @@ export const ADD_UPDATE_CROP_PLAN = "ADD_UPDATE_CROP_PLAN";
 //Market
 export const ADD_UPDATE_MY_PRODUCE = "ADD_UPDATE_MY_PRODUCE";
 
+//Farm Manager
+export const ADD_UPDATE_MY_INVENTORY = "ADD_UPDATE_MY_INVENTORY";
+export const DELETE_INVENTORY = "DELETE_INVENTORY";
+
 // Action Creators data = {type:<<>>, payload:<<>>}
 // payload:"name"
 export const action = (type, payload) => {

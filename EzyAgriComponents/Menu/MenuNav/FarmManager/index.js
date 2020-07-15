@@ -117,7 +117,7 @@ function FarmManager(props) {
     <View style={styles.container}>
       <TopMenu />
 
-      <View style={styles.view}>
+      <View style={stylesLocal.view}>
         <FlatGrid
           itemDimension={130}
           items={farmManagerItems}
@@ -156,7 +156,7 @@ const stylesLocal = StyleSheet.create({
     alignItems: "center",
     flexDirection: "row",
     flexWrap: "wrap",
-    height: "90%",
+    height: "89%",
   },
   items: {
     padding: "15%",

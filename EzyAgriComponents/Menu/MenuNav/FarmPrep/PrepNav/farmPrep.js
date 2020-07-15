@@ -228,21 +228,21 @@ function MapKG(props) {
           <Button
             mode="contained"
             onPress={() => getLocation()}
-            style={{ margin: "1%" }}
+            style={{ margin: "1%", width: "45%" }}
           >
             Get Location
           </Button>
           <Button
             mode="contained"
             onPress={() => showDialog()}
-            style={{ margin: "1%" }}
+            style={{ margin: "1%", width: "45%" }}
           >
             Add Field
           </Button>
           <Button
             mode="contained"
             onPress={() => clearSelection()}
-            style={{ margin: "1%" }}
+            style={{ margin: "1%", width: "45%" }}
           >
             Clear Selection
           </Button>
@@ -252,29 +252,11 @@ function MapKG(props) {
               undoPoint();
               setFields(dicArrayConv(props.fields));
             }}
-            style={{ margin: "1%" }}
+            style={{ margin: "1%", width: "45%" }}
           >
             Undo
           </Button>
         </View>
-
-        {/* <Modal
-          visible={visible}
-          onDismiss={hideModal}
-          contentContainerStyle={stylesLocal.modal}
-        >
-          <TextInput
-            placeholder={"Enter Field Name"}
-            onChangeText={(e) => setFieldName(e)}
-            style={{ width: "80%" }}
-          />
-          <Button
-            mode="contained"
-            onPress={() => addToField(fields, fieldName, mapPoints)}
-          >
-            ok
-          </Button>
-        </Modal> */}
 
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
@@ -322,7 +304,8 @@ const stylesLocal = StyleSheet.create({
   },
   buttons: {
     justifyContent: "space-evenly",
-    //flexDirection: "row",
+    flexDirection: "row",
+    flexWrap: "wrap",
   },
   modal: {
     flex: 1,

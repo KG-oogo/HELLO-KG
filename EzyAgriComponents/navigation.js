@@ -43,6 +43,8 @@ import SoilTesting from "./Menu/MenuNav/FarmPrep/PrepNav/soilTesting";
 // Farm Manager
 import FarmManager from "./Menu/MenuNav/FarmManager";
 import FieldManagement from "./Menu/MenuNav/FarmManager/FarmManagerNav/fieldManagement";
+import Inventory from "./Menu/MenuNav/FarmManager/FarmManagerNav/inventory";
+import DailyActivities from "./Menu/MenuNav/FarmManager/FarmManagerNav/dailyActivities";
 
 const MenuIcon = (props) => (
   <Ionicons
@@ -163,8 +165,11 @@ const SwitchNivigator = createSwitchNavigator(
     //MapKG: MapKG,
     SoilTesting: SoilTesting,
 
+    //Farm Manager
     FarmManager: FarmManager,
     FieldManagement: FieldManagement,
+    FarmManagerInventory: Inventory,
+    FarmManagerDailyActivities: DailyActivities,
   },
   {
     initialRouteName: "Login",
