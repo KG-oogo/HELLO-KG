@@ -162,7 +162,7 @@ function CropPlanning(props) {
     "-" +
     todayDate.getDate();
   const [cropPlan, setCropPlan] = useState({
-    irrigation_info: "",
+    irrigation_info: {},
     planting_date: today,
     estimate_harvest_date: "",
     seed_variety: "",

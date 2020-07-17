@@ -178,18 +178,12 @@ function SoilTesting(props) {
           </Text>
           {fields.map((value, index) => {
             return (
-              <TouchableRipple
-                onPress={() =>
-                  onFieldSelect(
-                    value["key"] //Object.keys(value).filter((v, i, a) => v === "key")[0]
-                  )
-                }
-                key={value["key"]}
+              <Button
+                mode="contained"
+                onPress={() => onFieldSelect(value["key"])}
               >
-                <Text style={{ textAlign: "center", fontSize: 35 }}>
-                  {value["field_name"]["name"]}
-                </Text>
-              </TouchableRipple>
+                {value["field_name"]["name"]}
+              </Button>
             );
           })}
         </View>

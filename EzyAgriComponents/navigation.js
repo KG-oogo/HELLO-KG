@@ -43,8 +43,13 @@ import SoilTesting from "./Menu/MenuNav/FarmPrep/PrepNav/soilTesting";
 // Farm Manager
 import FarmManager from "./Menu/MenuNav/FarmManager";
 import FieldManagement from "./Menu/MenuNav/FarmManager/FarmManagerNav/fieldManagement";
+import CropManagement from "./Menu/MenuNav/FarmManager/FarmManagerNav/cropManagement";
 import Inventory from "./Menu/MenuNav/FarmManager/FarmManagerNav/inventory";
 import DailyActivities from "./Menu/MenuNav/FarmManager/FarmManagerNav/dailyActivities";
+import LabourManagement from "./Menu/MenuNav/FarmManager/FarmManagerNav/labourManagement";
+
+//Business Records
+import BusinessRecords from "./Menu/MenuNav/BusinessRecords/businessRecords";
 
 const MenuIcon = (props) => (
   <Ionicons
@@ -167,9 +172,14 @@ const SwitchNivigator = createSwitchNavigator(
 
     //Farm Manager
     FarmManager: FarmManager,
-    FieldManagement: FieldManagement,
+    FarmManagerFieldManagement: FieldManagement,
+    FarmManagerCropManagement: CropManagement,
     FarmManagerInventory: Inventory,
     FarmManagerDailyActivities: DailyActivities,
+    FarmManagerLabourManagement: LabourManagement,
+
+    //Business Records
+    BusinessRecords: BusinessRecords,
   },
   {
     initialRouteName: "Login",

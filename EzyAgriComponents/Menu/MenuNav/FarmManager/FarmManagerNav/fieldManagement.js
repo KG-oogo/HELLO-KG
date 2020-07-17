@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, Dimensions, Image, Text } from "react-native";
+import { StyleSheet, View, Dimensions, Image, FlatList } from "react-native";
 import {
   List,
   Checkbox,
@@ -7,157 +7,207 @@ import {
   Button,
   Modal,
   Portal,
+  Text,
   Provider,
   Dialog,
   Card,
   TouchableRipple,
 } from "react-native-paper";
+
 import { connect } from "react-redux";
 import { dicArrayConv } from "../../../../Redux/dataConvertor";
 import styles from "../../../../styles";
+import { action, addUpdateDataTransaction } from "../../../../Redux/types";
+import { ADD_UPDATE_SOIL_TESTING } from "../../../../Redux/types";
+
+import TopMenu from "../../../../TopMenu/topMenu";
+
+function UpdateField(props) {
+  return (
+    <View>
+      <Button
+        mode="contained"
+        onPress={() => updateInformation(fields)}
+        styles={{ width: "80%" }}
+      >
+        Update Information
+      </Button>
+    </View>
+  );
+}
 
 function FieldManagement(props) {
   const [fields, setFields] = useState(dicArrayConv(props.fields));
-  //const soilTestingFieldInputs = dicArrayConv(props.soilTestingFieldInputs);
-
-  const [expanded, setExpanded] = useState(false);
-
-  //const [inputNamesetFieldName]
-
-  handlePress = () => setExpanded(!expanded);
+  const soilTestingFieldInputs = dicArrayConv(props.soilTestingFieldInputs);
 
   // Dialog
   const [visible, setVisible] = useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+  const [soilType, setSoilType] = useState("");
+  const [soilCategory, setSoilCategory] = useState("");
+  const [cropRecomendations, setCropRecomendations] = useState("");
+  const [fertilizerRecomendations, setFertilizerRecomendations] = useState("");
 
-  //{/* <List.Item title={v} />; */}
-  /* switch (v) {
-    case v["soil_type"] !== undefined:
-      return <Text>Soil Type :{v["soil_type"]} </Text>;
+  const [soilTestObject, setSoilTestObject] = useState({
+    soil_type: "",
+    soil_category: "",
+    crop_recomendations: "",
+    fertilizer_recomendations: "",
+  });
 
-    case v["soil_category"] !== undefined:
-      return <Text>Soil Category :{v["soil_type"]} </Text>;
+  // What ever field information that changes is added to this list -- ON HOLD
+  // [{fieldName:"x",
+  //   soilTestInfo:[{ soil_type:"x", soil_category:"x", crop_recommendations:"x", fertilizer_recomendation:"x"}]]
+  const [updateTheseField, setUpdateTheseField] = useState([]);
 
-    case v["crop_recomendations"] !== undefined:
-      return (
-        <Text>Crop Recomendations :{v["soil_type"]} </Text>
-      );
+  // State for inputs
 
-    case v["fertilizer_recomendations"] !== undefined:
-      return (
-        <Text>
-          Fertilizer Recomendations :{v["soil_type"]}
-        </Text>
-      );
+  const [expanded, setExpanded] = useState(false);
 
-    default:
-      console.log(v);
-      return <Text>No soil testing data entered</Text>;
-  } */
+  //const [inputNamesetFieldName]
 
-  const onCropPlanAdd = () => {
+  const handlePress = () => setExpanded(!expanded);
+
+  ////////////////////////////////////// array "newInformation"
+  const newInformation = () => {
+    const infor = [];
+
+    infor.push({ ["soil_type"]: soilType });
+    infor.push({ ["soil_category"]: soilCategory });
+    infor.push({ ["crop_recomendations"]: cropRecomendations });
+    infor.push({
+      ["fertilizer_recomendations"]: fertilizerRecomendations,
+    });
+
+    return infor;
+  };
+
+  const [recordKey, setRecordKey] = useState("");
+  const updateInformation = (recordKey, newInformation) => {
+    ///console.log(props.fields[recordKey]);
+
+    // Run addToField
+    fields.map((value, index, arr) => {
+      //console.log(value);
+      //addToField(fields, value., newFieldLonLat)
+    });
+    /**/
+    /* */
+    const payload = {
+      key: recordKey,
+      soil_testing: newInformation,
+    };
+
+    props.addUpdateDataTransaction(recordKey, ADD_UPDATE_SOIL_TESTING, payload);
+
+    //console.log(dicArrayConv(props.fields));
+    setFields(dicArrayConv(props.fields));
+
+    /* */
+
+    setSoilType("");
+    setSoilCategory("");
+    setCropRecomendations("");
+    setFertilizerRecomendations("");
+    setRecordKey("");
+    hideDialog();
+  };
+
+  const onFieldSelect = (fieldKey) => {
+    // soli_testing must be saved as [{"soilType":"Dust"}]
+    setRecordKey(fieldKey);
+    console.log(props.fields[fieldKey]);
+    if (props.fields[fieldKey]["soil_testing"] !== undefined) {
+      setSoilTestObject({
+        soil_type: props.fields[fieldKey]["soil_testing"]["soil_type"],
+        soil_category: props.fields[fieldKey]["soil_testing"]["soil_category"],
+        crop_recomendations:
+          props.fields[fieldKey]["soil_testing"]["crop_recomendations"],
+        fertilizer_recomendations:
+          props.fields[fieldKey]["soil_testing"]["fertilizer_recomendations"],
+      });
+    }
+
+    //console.log(soilType);
     showDialog();
+  };
+
+  const displaySoilTestObject = () => {
+    Object.entries(soilTestObject).map((value, key, arr) => (
+      <React.Fragment>
+        <TextInput label={value[0]} placeholder={"ENTER " + value[0]} />
+        {console.log("Hi")}
+        <Text>Hi</Text>
+      </React.Fragment>
+    ));
   };
 
   return (
     <React.Fragment>
       <View style={styles.container}>
-        <View style={stylesLocal.listItem}>
-          <List.Section title="Fields">
-            {fields.map((value, index, arr) => {
-              return (
-                <List.Accordion
-                  title={value.field_name}
-                  left={(props) => <List.Icon {...props} icon="folder" />}
-                  expanded={expanded}
-                  onPress={handlePress}
-                >
-                  {value.soil_testing !== undefined ? (
-                    value.soil_testing.map((v, i, a) => {
-                      //console.log(v.entries());
-                      //return <Text>{v} </Text>;
-                      if (v["soil_type"]) {
-                        return <Text>Soil Type :{v["soil_type"]} </Text>;
-                      } else if (v["soil_category"]) {
-                        return (
-                          <Text>Soil Category :{v["soil_category"]} </Text>
-                        );
-                      } else if (v["crop_recomendations"]) {
-                        return (
-                          <Text>
-                            Crop Recomendations :{v["crop_recomendations"]}
-                          </Text>
-                        );
-                      } else if (v["fertilizer_recomendations"]) {
-                        return (
-                          <Text>
-                            Fertilizer Recomendations :
-                            {v["fertilizer_recomendations"]}
-                          </Text>
-                        );
-                      }
-                    })
-                  ) : (
-                    <Text>No soil testing data entered</Text>
-                  )}
-                  <View>
-                    <Button
-                      mode="contained"
-                      onPress={() => onCropPlanAdd()}
-                      style={{
-                        margin: "1%",
-                        justifyContent: "center",
-                        alignItems: "center",
-                      }}
-                    >
-                      Start Management
-                    </Button>
-                  </View>
-                </List.Accordion>
-              );
-            })}
-
-            {/* <List.Accordion
-              title="Field Name"
-              left={(props) => <List.Icon {...props} icon="folder" />}
-              expanded={expanded}
-              onPress={handlePress}
-            >
-              <List.Item title="First item" />
-              <List.Item title="Second item" />
-            </List.Accordion> */}
-          </List.Section>
+        <TopMenu />
+        <View style={{ margin: "6%" }}>
+          <Button
+            onPress={() => {
+              props.navigation.navigate("FarmManager");
+            }}
+            mode={"contained"}
+          >
+            Back to Farm Manager
+          </Button>
         </View>
+        <View style={stylesLocal.listItem}>
+          <Text
+            style={{ textAlign: "center", fontSize: 15, fontWeight: "bold" }}
+          >
+            Field information per field
+          </Text>
+          {fields.length === 0 ? (
+            <Text>No fields selected</Text>
+          ) : (
+            fields.map((value, index) => {
+              return (
+                <Button
+                  mode="contained"
+                  onPress={() => onFieldSelect(value["key"])}
+                >
+                  {value["field_name"]["name"]}
+                </Button>
+              );
+            })
+          )}
+        </View>
+
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
-            <Dialog.Title>Enter Field Management Infor please</Dialog.Title>
+            <Dialog.Title>Field Information</Dialog.Title>
             <Dialog.Content>
-              {/* <TextInput
-                placeholder={"Enter Field Name"}
-                onChangeText={(e) => setFieldName(e)}
-                style={{ width: "80%" }}
-              /> */}
-              {/* {soilTestingFieldInputs.map((value, index, arr) => (
-                <React.Fragment key={value.key}>
-                  <List.Item title={value.input_name}></List.Item>
-                  <TextInput
-                    placeholder={"ENTER " + value.input_name}
-                    //onChangeText={(e) => eval("(" + value.set + ")")}
-                  />
+              {
+                <React.Fragment>
+                  <Text style={stylesLocal.labelDialog}>{"Soil Type"}</Text>
+                  <Text>{soilTestObject.soil_type}</Text>
+
+                  <Text style={stylesLocal.labelDialog}>{"Soil Category"}</Text>
+                  <Text>{soilTestObject.soil_category}</Text>
+
+                  <Text style={stylesLocal.labelDialog}>
+                    {"Crop Recomendations"}
+                  </Text>
+                  <Text>{soilTestObject.crop_recomendations}</Text>
+
+                  <Text style={stylesLocal.labelDialog}>
+                    {"Fertilizer Recomendations"}
+                  </Text>
+                  <Text>{soilTestObject.fertilizer_recomendations}</Text>
+
+                  <Text style={stylesLocal.labelDialog}>{"Arable Area"}</Text>
+                  <Text>{"?????????????????????????"}</Text>
                 </React.Fragment>
-              ))} */}
-              <Text>Irrigation Infor:</Text>
-              <Text>Planting Date:</Text>
-              <Text>Estimated Harvest Date:</Text>
-              <Text>Seed Variety:</Text>
-              <Text>Pestecide type:</Text>
-              <Text></Text>
+              }
             </Dialog.Content>
             <Dialog.Actions>
-              <Button onPress={() => console.log("pressed")}>
-                Update Field
-              </Button>
+              <Button onPress={() => hideDialog()}>Close</Button>
             </Dialog.Actions>
           </Dialog>
         </Portal>
@@ -169,6 +219,12 @@ function FieldManagement(props) {
 const stylesLocal = StyleSheet.create({
   listItem: {
     width: "80%",
+    //flex: 1,
+    height: "75%",
+  },
+  labelDialog: {
+    fontSize: 15,
+    fontWeight: "bold",
   },
 });
 
@@ -177,44 +233,6 @@ const mapStateToProps = (state) => ({
   soilTestingFieldInputs: state.addUpdateReducer.soilTestingFieldInputs,
 });
 
-export default connect(mapStateToProps)(FieldManagement);
-
-/*
-
-<React.Fragment>
-                      (
-                      {value.soil_testing.map((v, i, a) => {
-                        //console.log(v.entries());
-                        //return <Text>{v} </Text>;
-                        if (v["soil_type"]) {
-                          return <Text>Soil Type :{v["soil_type"]} </Text>;
-                        } else if (v["soil_category"]) {
-                          return (
-                            <Text>Soil Category :{v["soil_category"]} </Text>
-                          );
-                        } else if (v["crop_recomendations"]) {
-                          return (
-                            <Text>
-                              Crop Recomendations :{v["crop_recomendations"]}
-                            </Text>
-                          );
-                        } else if (v["fertilizer_recomendations"]) {
-                          return (
-                            <Text>
-                              Fertilizer Recomendations :
-                              {v["fertilizer_recomendations"]}
-                            </Text>
-                          );
-                        }
-                      })}
-                      <Button
-                        mode="contained"
-                        onPress={() => showDialog()}
-                        style={{ margin: "1%" }}
-                      >
-                        Add Field
-                      </Button>
-                      )
-                    </React.Fragment>
-
-*/
+export default connect(mapStateToProps, { addUpdateDataTransaction })(
+  FieldManagement
+);

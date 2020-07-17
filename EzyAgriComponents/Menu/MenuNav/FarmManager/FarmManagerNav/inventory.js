@@ -173,6 +173,17 @@ function Inventory(props, { route, navigation }) {
   return (
     <View style={styles.container}>
       <TopMenu />
+
+      <View style={{ margin: "6%" }}>
+        <Button
+          onPress={() => {
+            props.navigation.navigate("FarmManager");
+          }}
+          mode={"contained"}
+        >
+          Back to Farm Manager
+        </Button>
+      </View>
       <ScrollView contentContainerStyle={stylesLocal.view}>
         {inventory.length === 0 ? (
           <React.Fragment>
@@ -323,7 +334,7 @@ const stylesLocal = StyleSheet.create({
     //flexDirection: "row",
     //flexWrap: "wrap",
     //margin: "5%",
-    height: "75%",
+    height: "67%",
   },
   items: {
     margin: "5%",

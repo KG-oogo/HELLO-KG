@@ -4,7 +4,7 @@ export const farmManagerItems = {
     name: "Field Management",
     //icon: "cast",
     icon: "business",
-    redirect: "FieldManagement",
+    redirect: "FarmManagerFieldManagement",
   },
   "2": {
     key: "2",
@@ -20,7 +20,7 @@ export const farmManagerItems = {
     //icon: "bug-report",
     //icon: "crop-original",
     icon: "local-florist",
-    redirect: "Application",
+    redirect: "FarmManagerCropManagement",
   },
   "4": {
     key: "4",
@@ -28,7 +28,7 @@ export const farmManagerItems = {
     //icon: "person",
     //icon: "bubble-chart",
     icon: "face",
-    redirect: "Application",
+    redirect: "FarmManagerLabourManagement",
   },
   "5": {
     key: "5",

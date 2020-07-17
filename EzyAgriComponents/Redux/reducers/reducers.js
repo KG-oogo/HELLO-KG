@@ -57,6 +57,8 @@ import {
   // Farm manager
   ADD_UPDATE_MY_INVENTORY,
   DELETE_INVENTORY,
+  ADD_UPDATE_FARM_MANAGER_LABOUR,
+  DELETE_FARM_MANAGER_LABOUR,
 } from "../types";
 
 import { menuItems } from "../Defaults/menu/menuItems";
@@ -133,6 +135,7 @@ export const addUpdateReducer = (
     //Farm Manager
     farmManagerItems: farmManagerItems,
     inventory: {},
+    farmManagerLabour: {},
 
     // User Login ID
     user_id: {},
@@ -274,6 +277,15 @@ export const addUpdateReducer = (
 
     case DELETE_INVENTORY:
       delete state.inventory[action.payload];
+      return state;
+
+    case ADD_UPDATE_FARM_MANAGER_LABOUR:
+      state.farmManagerLabour[Object.keys(action.payload)[0]] =
+        action.payload[Object.keys(action.payload)[0]];
+      return state;
+
+    case DELETE_FARM_MANAGER_LABOUR:
+      delete state.farmManagerLabour[action.payload];
       return state;
 
     default:

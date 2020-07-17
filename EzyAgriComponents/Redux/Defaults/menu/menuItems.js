@@ -9,7 +9,7 @@ export const menuItems = {
     key: "2",
     name: "Business Records",
     icon: "business-center",
-    redirect: "",
+    redirect: "BusinessRecords",
   },
 
   "3": {
