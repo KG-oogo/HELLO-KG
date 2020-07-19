@@ -8,17 +8,16 @@ import { createStackNavigator } from "react-navigation-stack";
 import { Ionicons } from "@expo/vector-icons";
 
 import Login from "./Login/login";
+
+// Main Menu
 import MenuFirstTab from "./Menu/menu";
 import ShopSecondTab from "./Shop/shop";
-//import ShopTopNavigator from "./Shop/shop";
 import TopMenu from "./TopMenu/topMenu";
-//import ShopHome from "./Shop/ShopNav/home";
-//import ShopMyOrders from "./Shop/ShopNav/myOrders";
-//import ShopMyFavourites from "./Shop/ShopNav/myFavourites";
-
 import ServiceThirdTab from "./Service/service";
 import SupportFouthTab from "./Support/support";
 import RegisterFarmerSupport from "../SharedComponents/register";
+
+import Buy from "./Shop/ShopNav/buy";
 
 import AddService from "./Admin/addServices";
 import AddProducts from "./Admin/addProducts";
@@ -159,6 +158,10 @@ const SwitchNivigator = createSwitchNavigator(
     CamKG: CamKG,
     ProduceMarket: ProduceMarketSwitchNivigator,
 
+    // Checkout
+    Buy: Buy,
+
+    // Information
     Information: Information,
     CropFarmingInfor: CropFarmingInfor,
     Diagnosis: Diagnosis,

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList } from "react-native";
 import {
   Button,
@@ -6,6 +6,7 @@ import {
   Card,
   Title,
   Paragraph,
+  Dialog,
 } from "react-native-paper";
 import { connect } from "react-redux";
 
@@ -14,6 +15,7 @@ import { deleteDataTransaction, DELETE_ORDERS } from "../../Redux/types";
 import { mdiCart } from "@mdi/js";
 
 import TopMenu from "../../TopMenu/topMenu";
+import { withNavigation, StackRouter } from "react-navigation";
 
 function AgriShopButton() {
   return <Button>Press me</Button>;
@@ -48,6 +50,34 @@ function ShopMyOrders(props) {
     props.deleteDataTransaction(DELETE_ORDERS, payload);
     /**/
   };
+
+  // Total
+  const [total, setTotal] = useState(0);
+  const totalCalc = () => {
+    let t = 0;
+    orders.forEach((value) => {
+      console.log(value.products);
+      t = t + parseFloat(value.products.products.amount);
+    });
+    setTotal(t);
+  };
+  /* useEffect(
+    () =>
+      setInterval(() => {
+        totalCalc();
+      }, 1000),
+    [orders]
+  ); */
+
+  useEffect(() => totalCalc(), [orders]);
+
+  /*
+setInterval(() => {
+      setBadgeCount(dicArrayConv(props.orders).length);
+    }, 1000);
+  */
+
+  //console.log(total());
   return (
     <View style={stylesLocal.container}>
       <View style={stylesLocal.view}>
@@ -61,8 +91,10 @@ function ShopMyOrders(props) {
             renderItem={({ item }) => (
               <Card style={stylesLocal.items} elevation={10}>
                 <Card.Content>
+                  <Text>Name:</Text>
                   <Title>{item.products.products.name}</Title>
                   <Paragraph>{item.products.products.description}</Paragraph>
+                  <Text>R:{item.products.products.amount}</Text>
                 </Card.Content>
                 {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
                 <Card.Cover source={{ uri: item.products.products.picture }} />
@@ -83,6 +115,15 @@ function ShopMyOrders(props) {
           />
         )}
       </View>
+      <View style={stylesLocal.total}>
+        <Text style={{ fontSize: 15, fontWeight: "bold" }}>Total:R{total}</Text>
+        <Button
+          mode="contained"
+          onPress={() => props.navigation.navigate("Buy", { total: total })}
+        >
+          Buy
+        </Button>
+      </View>
     </View>
   );
 }
@@ -99,14 +140,21 @@ const stylesLocal = StyleSheet.create({
     //flexDirection: "row",
 
     flexWrap: "wrap",
-    height: "100%",
+    height: "90%",
+    margin: "1%",
   },
   items: {
-    //margin: "5%",
     ///justifyContent: "center",
     //alignItems: "center",
   },
   card: { paddingVertical: "15%" },
+  total: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    flexDirection: "row",
+    margin: "1%",
+  },
 });
 
 const mapStateToProps = (state) => ({
@@ -114,5 +162,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default connect(mapStateToProps, { deleteDataTransaction })(
-  ShopMyOrders
+  withNavigation(ShopMyOrders)
 );

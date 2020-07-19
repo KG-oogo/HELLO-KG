@@ -158,7 +158,9 @@ function CropPlanning(props) {
   const today =
     todayDate.getFullYear() +
     "-" +
-    (todayDate.getMonth() + 1) +
+    (todayDate.getMonth().toString().length > 1
+      ? todayDate.getMonth() + 1
+      : "0" + (todayDate.getMonth() + 1)) +
     "-" +
     todayDate.getDate();
   const [cropPlan, setCropPlan] = useState({

@@ -59,8 +59,10 @@ function ShopMyFavourites(props) {
             renderItem={({ item }) => (
               <Card style={stylesLocal.items} elevation={10}>
                 <Card.Content>
+                  <Text>Name:</Text>
                   <Title>{item.products.products.name}</Title>
                   <Paragraph>{item.products.products.description}</Paragraph>
+                  <Text>R:{item.products.products.amount}</Text>
                 </Card.Content>
                 {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
                 <Card.Cover source={{ uri: item.products.products.picture }} />
@@ -81,6 +83,9 @@ function ShopMyFavourites(props) {
           />
         )}
       </View>
+      {/* <View>
+        <Text>Total:R10000</Text>
+      </View> */}
     </View>
   );
 }
@@ -97,7 +102,7 @@ const stylesLocal = StyleSheet.create({
     //flexDirection: "row",
 
     flexWrap: "wrap",
-    height: "100%",
+    height: "90%",
   },
   items: {
     //margin: "5%",

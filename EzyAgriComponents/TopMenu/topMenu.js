@@ -89,7 +89,7 @@ function TopMenu(props) {
                 fontSize: 20,
               }}
             >
-              Agri-webSA
+              Back To Main
             </Text>
           </TouchableRipple>
         )}
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: "5%",
+    //width: initialLayout["width"],
   },
   view: {
     flexDirection: "row",

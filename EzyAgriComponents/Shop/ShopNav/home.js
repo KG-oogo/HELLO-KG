@@ -82,8 +82,10 @@ function ShopHome(props) {
             renderItem={({ item }) => (
               <Card style={stylesLocal.items} elevation={10}>
                 <Card.Content>
+                  <Text>Name:</Text>
                   <Title>{item.products.name}</Title>
                   <Paragraph>{item.products.description}</Paragraph>
+                  <Text>R:{item.products.amount}</Text>
                 </Card.Content>
                 {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
                 <Card.Cover source={{ uri: item.products.picture }} />

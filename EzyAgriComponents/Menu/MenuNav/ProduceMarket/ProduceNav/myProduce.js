@@ -219,8 +219,10 @@ function MyProduce(props, { route, navigation }) {
               <React.Fragment>
                 <Card style={stylesLocal.items} elevation={10}>
                   <Card.Content>
+                    <Text>Name:</Text>
                     <Title>{item.products.name}</Title>
                     <Paragraph>{item.products.description}</Paragraph>
+                    <Text>R:{item.products.amount}</Text>
                   </Card.Content>
                   {/* <Card.Cover source={{ uri: "https://picsum.photos/700" }} /> */}
                   <Card.Cover source={{ uri: item.products.picture }} />
@@ -257,7 +259,26 @@ function MyProduce(props, { route, navigation }) {
           <Dialog.Title>Enter product infor please</Dialog.Title>
           <Dialog.Content>
             {menuItems.map((value, index, arr) =>
-              value.item !== "picture" ? (
+              value.item === "picture" ? (
+                <ProductImage
+                  image={image}
+                  setImage={setImage}
+                  setProduct={setProduct}
+                  product={product}
+                />
+              ) : value.item === "amount" ? (
+                <React.Fragment key={value.key}>
+                  <TextInput
+                    label={value.item.toUpperCase()}
+                    placeholder={"ENTER " + value.item.toUpperCase()}
+                    value={product[value.item]}
+                    keyboardType={"number-pad"}
+                    onChangeText={(e) =>
+                      setProduct({ ...product, [value.item]: e })
+                    }
+                  />
+                </React.Fragment>
+              ) : (
                 <React.Fragment key={value.key}>
                   <TextInput
                     label={value.item.toUpperCase()}
@@ -268,13 +289,6 @@ function MyProduce(props, { route, navigation }) {
                     }
                   />
                 </React.Fragment>
-              ) : (
-                <ProductImage
-                  image={image}
-                  setImage={setImage}
-                  setProduct={setProduct}
-                  product={product}
-                />
               )
             )}
           </Dialog.Content>

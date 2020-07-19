@@ -19,6 +19,8 @@ import { action, addUpdateDataTransaction } from "../../../../Redux/types";
 import { ADD_UPDATE_FIELD } from "../../../../Redux/types";
 import { dicArrayConv } from "../../../../Redux/dataConvertor";
 
+import { getAreaOfPolygon, convertArea } from "geolib";
+
 function MapKG(props) {
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -36,7 +38,7 @@ function MapKG(props) {
 
   const [fieldName, setFieldName] = useState({
     name: "",
-    hectre: "",
+    //hectre: "",
   });
   const [fields, setFields] = useState(dicArrayConv(props.fields));
 
@@ -95,17 +97,17 @@ function MapKG(props) {
   const addToField = (fields, newFieldName, newFieldLonLat) => {
     let nextIndex = "";
     let exists = 0;
-    console.log(fields);
+    //console.log(fields);
 
     // If key exists
     for (let i = 0; i < fields.length; i++) {
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-      console.log(
+      //console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      /* console.log(
         fields[i]["field_name"]["name"] === newFieldName["name"].trim()
-      );
-      console.log(fields[i]["field_name"]["name"].length);
-      console.log(newFieldName["name"].trim().length);
-      console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+      ); */
+      //console.log(fields[i]["field_name"]["name"].length);
+      //console.log(newFieldName["name"].trim().length);
+      //console.log("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 
       if (
         /* Object.keys(fields[i]["field_name"]["name"]).filter((e) => e !== "key")[0] ===
@@ -124,14 +126,28 @@ function MapKG(props) {
       nextIndex = (fields.length + 1).toString();
     }
 
+    // Calculate area
+    const polygonPoints = newFieldLonLat.map((value) => {
+      return [value.latitude, value.longitude];
+    });
+
+    const areaHectares = parseFloat(
+      convertArea(getAreaOfPolygon(polygonPoints), "ha").toFixed(2)
+    );
+    const areaMeters = parseFloat(
+      convertArea(getAreaOfPolygon(polygonPoints), "m2").toFixed(2)
+    );
+
     const payload = {
       [nextIndex]: {
         key: nextIndex,
         field_name: newFieldName,
         polygon: newFieldLonLat,
+        areaHectares: areaHectares,
+        areaMeters: areaMeters,
       },
     };
-    console.log(payload);
+    //console.log(payload);
     props.addUpdateDataTransaction(nextIndex, ADD_UPDATE_FIELD, payload);
 
     //console.log(dicArrayConv(props.fields));
@@ -147,7 +163,10 @@ function MapKG(props) {
           <MapView
             style={stylesLocal.mapStyle}
             mapType={"satellite"}
-            onPress={(e) => addMarker(e.nativeEvent.coordinate)}
+            onPress={(e) => {
+              addMarker(e.nativeEvent.coordinate);
+              //console.log(e.nativeEvent.coordinate);
+            }}
             region={
               location === null
                 ? {
@@ -167,7 +186,7 @@ function MapKG(props) {
             {mapPoints.length === 1 ? (
               mapPoints.map((point) => (
                 <Marker
-                  draggable
+                  //draggable
                   coordinate={{
                     latitude: point.latitude,
                     longitude: point.longitude,
@@ -188,7 +207,7 @@ function MapKG(props) {
 
                 {mapPoints.map((point) => (
                   <Marker
-                    draggable
+                    //draggable
                     coordinate={{
                       latitude: point.latitude,
                       longitude: point.longitude,
@@ -211,7 +230,7 @@ function MapKG(props) {
               <React.Fragment></React.Fragment>
             ) : (
               fields.map((value, index, arr) => {
-                console.log(value);
+                //console.log(value);
                 /**/ return (
                   <Polygon
                     coordinates={value["polygon"]}
@@ -267,12 +286,12 @@ function MapKG(props) {
                 onChangeText={(e) => setFieldName({ ...fieldName, name: e })}
                 style={{ width: "80%" }}
               />
-              <TextInput
+              {/* <TextInput
                 placeholder={"Enter Field Hectures"}
                 onChangeText={(e) => setFieldName({ ...fieldName, hectre: e })}
                 style={{ width: "80%" }}
                 keyboardType={"number-pad"}
-              />
+              /> */}
             </Dialog.Content>
             <Dialog.Actions>
               <Button

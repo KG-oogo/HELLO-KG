@@ -181,14 +181,19 @@ function SoilTesting(props) {
               <Button
                 mode="contained"
                 onPress={() => onFieldSelect(value["key"])}
+                style={{ margin: "1%" }}
               >
-                {value["field_name"]["name"]}
+                {value["field_name"]["name"]}(
+                {value["areaHectares"] === 0
+                  ? value["areaMeters"] + " SquareMeters"
+                  : value["areaHectares"] + " Hectares"}
+                )
               </Button>
             );
           })}
         </View>
 
-        <Button onPress={() => console.log(props.fields)}>Test Button</Button>
+        {/* <Button onPress={() => console.log(props.fields)}>Test Button</Button> */}
 
         <Portal>
           <Dialog visible={visible} onDismiss={hideDialog}>
